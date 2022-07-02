@@ -1,0 +1,46 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"[ansible]": {
+			"gitlens.codeLens.scopes": [
+				"document"
+			]
+		},
+		"sqltools.connections": [
+			{
+				"mysqlOptions": {
+					"authProtocol": "default"
+				},
+				"previewLimit": 50,
+				"server": "127.0.0.1",
+				"port": 3306,
+				"driver": "MySQL",
+				"name": "Laravel",
+				"database": "laravel_canner",
+				"username": "root",
+				"password": "root"
+			}
+		]
+	},
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"label": "Php server",
+				"type": "shell",
+				"command": "php artisan serv",
+				"problemMatcher": [],
+			},
+			{
+				"label": "Vue js",
+				"type": "shell",
+				"command": "npm run serv",
+				"problemMatcher": []
+			}
+		]
+	}
+}
