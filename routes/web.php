@@ -6,6 +6,7 @@ use App\Http\Controllers\Dashboard\Content\DetectionController;
 use App\Http\Controllers\Dashboard\Content\DoseController;
 use App\Http\Controllers\Dashboard\Content\ActivityController;
 use App\Http\Controllers\Dashboard\ContentController;
+use App\Http\Controllers\Dashboard\ReportsController;
 use App\Http\Controllers\Dashboard\TypesController;
 use App\Http\Controllers\Dashboard\Users\PermissionController;
 use App\Http\Controllers\Dashboard\Users\RoleController;
@@ -95,6 +96,12 @@ Route::middleware([
             Route::post('update/{id}', 'update')->name('update');
             Route::post('store', 'store')->name('store');
             Route::post('delete/{id}', 'delete')->name('delete');
+        });
+
+//        for reports
+        Route::prefix('reports')->name('reports.')->group(function(){
+            Route::get('/', [ReportsController::class, 'index'])->name('index');
+            Route::post('get-records', [ReportsController::class, 'getRecords'])->name('getRecords');
         });
 
         // for app info

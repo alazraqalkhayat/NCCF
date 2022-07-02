@@ -22,9 +22,8 @@
                     <PrimaryButton @click="showForm.add = true" class="mx-1">اضافة</PrimaryButton>
                 </div>
             </div>
-            <Types v-for="item in type" :key="item.type" :getData="showData.data" :addForm="showForm.add"
+            <Types :getData="showData.data" :addForm="showForm.add"
                    :updateForm="showForm.update" :roles="showData.roles" :type="isType"
-                   :class="isType === item.type?'hidden':'block'"
                    @closeModel="showForm.update = false; showForm.add = false" :editData="editData"
             />
 

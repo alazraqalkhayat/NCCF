@@ -1229,6 +1229,9 @@ select {
 .h-72 {
   height: 18rem;
 }
+.h-\[70vh\] {
+  height: 70vh;
+}
 .max-h-\[6vh\] {
   max-height: 6vh;
 }

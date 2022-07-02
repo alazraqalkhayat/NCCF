@@ -19,7 +19,7 @@
                 </div>
                 <div class="flex items-center text-sm mt-2 w-full">
                     <div v-for="item in type" @click="active(item.title)" :key="item"
-                         :class="`mx-2 border-t border-r border-l  rounded-t-md cursor-pointer px-4 py-1 ${item.title == isType ? 'bg-gray-500 text-white' : ''}`">
+                         :class="`mx-2 border-t border-r border-l text-sm rounded-t-md cursor-pointer px-4 py-1 ${item.title == isType ? 'bg-gray-500 text-white' : ''}`">
                         {{ item.title }}
                     </div>
                 </div>

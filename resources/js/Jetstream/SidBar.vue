@@ -36,6 +36,12 @@ export default {
                     subUrl: null
                 },
                 {
+                    url: "reports.index",
+                    title: "التقارير",
+                    isShow: false,
+                    subUrl: null
+                },
+                {
                     url: "user.index",
                     title: "ادارة المستحدمين",
                     subUrl: {
