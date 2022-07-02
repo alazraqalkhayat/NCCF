@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\Content\AnalysisController;
+use App\Http\Controllers\Dashboard\Content\AppInfoController;
 use App\Http\Controllers\Dashboard\Content\DetectionController;
 use App\Http\Controllers\Dashboard\Content\DoseController;
 use App\Http\Controllers\Dashboard\Content\ActivityController;
@@ -96,6 +97,8 @@ Route::middleware([
             Route::post('delete/{id}', 'delete')->name('delete');
         });
 
+        // for app info
+        Route::post('app-info/update/{appInfo}', [AppInfoController::class,'update'])->name('app_info.update');
 
         // for patient detection
         Route::prefix('patient-detection')

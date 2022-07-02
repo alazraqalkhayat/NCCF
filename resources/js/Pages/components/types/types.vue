@@ -126,6 +126,7 @@ export default {
     },
     data() {
         return {
+            isType:this.type,
             showForm: {
                 add: this.addForm,
                 update: this.updateForm
@@ -160,6 +161,9 @@ export default {
         getData: function (nv, ov) {
             this.showData = nv
         },
+        type:function (nv,ov){
+            this.isType = nv
+        }
     },
     methods: {
         editForm(id) {
@@ -169,7 +173,7 @@ export default {
         store() {
             axios.post(route('types.store'), {
                 name: this.addData.name,
-                type: this.type,
+                type: this.isType,
             }).then(r => {
                 this.showData.push(r.data.data[0])
                 this.$emit('closeModel')
@@ -186,7 +190,7 @@ export default {
         update() {
             axios.post(route('types.update', {id: this.editData.id}), {
                 name: this.editData.name,
-                type: this.type,
+                type: this.isType,
             }).then(r => {
                 console.log(r.data)
                 this.showData = this.showData.map(item => {
@@ -208,7 +212,7 @@ export default {
         },
         deleteFun() {
             axios.post(route('types.delete', {id: this.editData.id}),{
-                type: this.type
+                type: this.isType
             }).then(r => {
                 this.showData = this.showData.filter(item => item.id !== this.editData.id)
                 this.showForm.update = false;

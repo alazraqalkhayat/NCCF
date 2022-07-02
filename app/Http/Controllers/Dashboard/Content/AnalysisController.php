@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class AnalysisController extends Controller
 {
-    public static function getAnalysis($date = null, $id = null, $userId = null)
+    public static function getAnalysis($date = null, $id = null, $userId = null): \Illuminate\Database\Eloquent\Collection|array|\Illuminate\Support\Collection
     {
         return Analysis::query()
             ->when($date, fn ($query, $date) => $query->whereDate('date', '=', $date))

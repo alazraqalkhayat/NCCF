@@ -9,8 +9,8 @@
             <!-- filter -->
             <div class="w-full border-b-2 h-1/5 flex items-center justify-between">
                 <div class="flex items-center justify-around text-sm">
-                    <div v-for="item in type" @click="active(item.title)" :key="item.url"
-                         :class="`mx-2 border-t border-r border-l  rounded-t-md cursor-pointer px-4 py-1 ${item.title === isType ? 'bg-gray-500 text-white' : ''}`">
+                    <div v-for="item in type" @click="active(item.type)" :key="item.url"
+                         :class="`mx-2 border-t border-r border-l  rounded-t-md cursor-pointer px-4 py-1 ${item.type === isType ? 'bg-gray-500 text-white' : ''}`">
                         {{ item.title }}
                     </div>
                 </div>
@@ -22,12 +22,11 @@
                     <PrimaryButton @click="showForm.add = true" class="mx-1">اضافة</PrimaryButton>
                 </div>
             </div>
-            <div v-for="item in type" :key="item.title">
-                <Types v-if="isType === item.title" :getData="showData.data" :addForm="showForm.add"
-                       :updateForm="showForm.update" :roles="showData.roles" :type="item.type"
-                       @closeModel="showForm.update = false; showForm.add = false" :editData="editData"
-                />
-            </div>
+            <Types v-for="item in type" :key="item.type" :getData="showData.data" :addForm="showForm.add"
+                   :updateForm="showForm.update" :roles="showData.roles" :type="isType"
+                   :class="isType === item.type?'hidden':'block'"
+                   @closeModel="showForm.update = false; showForm.add = false" :editData="editData"
+            />
 
         </div>
 
@@ -83,7 +82,7 @@ export default {
         getRecords() {
             axios.post(route('types.getRecords'), {
                 name: this.searchData,
-                type: this.type.filter(v => v.title === this.isType)[0].type
+                type: this.isType
             }).then(r => {
                 this.showData = r.data
                 console.log(r.data)

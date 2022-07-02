@@ -6,38 +6,43 @@
             </h2>
         </template>
         <div class="bg-white h-[80vh] min-w-[80vw] overflow-auto shadow-xl sm:rounded-lg px-6">
-            <!-- filter -->
-            <div class="w-full border-b-2 h-1/5 flex items-center justify-between">
-                <div class="flex items-center justify-around text-sm">
+            <!-- top -->
+            <div  class="w-full border-b-2 h-1/5 mt-2">
+                <div v-if="isType !== 'معلومات التطبيق'" class="flex w-full items-center justify-between text-sm">
+                    <div class="flex items-center justify-center" >
+                        <div class="flex items-center mx-1">
+                            <JetInput v-model="searchData" type="text" class="text-sm" :placeholder="`${isType}`" />
+                        </div>
+                        <SecondaryButton class="mx-1" @click="getRecords">بحث</SecondaryButton>
+                    </div>
+                    <PrimaryButton @click="showForm.add = true" class="mx-1">اضافة</PrimaryButton>
+                </div>
+                <div class="flex items-center text-sm mt-2 w-full">
                     <div v-for="item in type" @click="active(item.title)" :key="item"
-                        :class="`mx-2 border-t border-r border-l  rounded-t-md cursor-pointer px-4 py-1 ${item.title == isType ? 'bg-gray-500 text-white' : ''}`">
+                         :class="`mx-2 border-t border-r border-l  rounded-t-md cursor-pointer px-4 py-1 ${item.title == isType ? 'bg-gray-500 text-white' : ''}`">
                         {{ item.title }}
                     </div>
                 </div>
-                <div class="flex items-center justify-around text-sm">
-                    <div class="flex items-center mx-1">
-                        <JetInput v-model="searchData" type="date" class="text-sm" :placeholder="`${isType}`" />
-                    </div>
-                    <SecondaryButton class="mx-1" @click="getRecords">بحث</SecondaryButton>
-                    <PrimaryButton @click="showForm.add = true" class="mx-1">اضافة</PrimaryButton>
-                </div>
             </div>
 
-            <Analysis v-if="isType == 'analysis'" :getData="showData.data" :addForm="showForm.add"
+            <Analysis v-if="isType === 'التحاليل'" :getData="showData.data" :addForm="showForm.add"
                 :updateForm="showForm.update" :roles="showData.roles"
                 @closeModel="showForm.update = false; showForm.add = false" :editData="editData" :editForm="editForm" />
 
-            <Dose v-if="isType == 'dose'" :getData="showData.data" :addForm="showForm.add" :updateForm="showForm.update"
+            <Dose v-if="isType === 'الجرعات'" :getData="showData.data" :addForm="showForm.add" :updateForm="showForm.update"
                 :roles="showData.roles" @closeModel="showForm.update = false; showForm.add = false" :editData="editData"
                 :editForm="editForm" />
 
-            <Detection v-if="isType == 'detection'" :getData="showData.data" :addForm="showForm.add"
+            <Detection v-if="isType === 'الكشف المبكر'" :getData="showData.data" :addForm="showForm.add"
                 :updateForm="showForm.update" :roles="showData.roles"
                 @closeModel="showForm.update = false; showForm.add = false" :editData="editData" :editForm="editForm" />
 
-            <Activity v-if="isType == 'activity'" :getData="showData.data" :addForm="showForm.add"
+            <Activity v-if="isType === 'الانشطة والفعاليات'" :getData="showData.data" :addForm="showForm.add"
                 :updateForm="showForm.update" :roles="showData.roles"
                 @closeModel="showForm.update = false; showForm.add = false" :editData="editData" :editForm="editForm" />
+
+            <app_info v-if="isType === 'معلومات التطبيق'" :getData="showData.data"
+                      :updateForm="showForm.update" @closeModel="showForm.update = false; showForm.add = false" />
         </div>
 
     </AppLayoutVue>
@@ -52,9 +57,11 @@ import Activity from '../components/content/activities.vue'
 import PrimaryButton from '../../Jetstream/PrimaryButton.vue'
 import SecondaryButton from '../../Jetstream/SecondaryButton.vue'
 import JetInput from '../../Jetstream/Input.vue'
+import App_info from "../components/content/app_info";
 
 export default {
     components: {
+        App_info,
         AppLayoutVue,
         PrimaryButton,
         SecondaryButton,
@@ -80,10 +87,11 @@ export default {
                 update: false
             },
             type: [
-                { title: 'analysis', url: 'analysis.' },
-                { title: 'dose', url: 'dose.' },
-                { title: 'detection', url: 'detection.' },
-                { title: 'activity', url: 'activity.' },
+                { title: 'التحاليل', url: 'analysis.' },
+                { title: 'الجرعات', url: 'dose.' },
+                { title: 'الكشف المبكر', url: 'detection.' },
+                { title: 'الانشطة والفعاليات', url: 'activity.' },
+                { title: 'معلومات التطبيق', url: 'appinfo.' },
             ],
             isType: '',
             editData: {},
@@ -97,7 +105,7 @@ export default {
 
 
         getRecords() {
-            axios.post(route('content.getRecourds'), {
+            axios.post(route('content.getRecords'), {
                 name: this.searchData,
                 type: this.isType
             }).then(r => {

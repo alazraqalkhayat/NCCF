@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Dashboard\Content\ActivityController;
 use App\Http\Controllers\Dashboard\Content\AnalysisController;
+use App\Http\Controllers\Dashboard\Content\AppInfoController;
 use App\Http\Controllers\Dashboard\Content\DetectionController;
 use App\Http\Controllers\Dashboard\Content\DoseController;
 use App\Models\AnalysisType;
@@ -33,39 +34,43 @@ class ContentController extends Controller
     {
         $title = $request->get('type');
         $name = $request->get('name') == '' ? null : $request->get('name');
-        if ($title == 'analysis')
-            return response()->json([
+
+        $data = match ($title) {
+            'الانشطة والفعاليات' => [
+                'data' => ActivityController::getActivity($name),
+                'roles' => [],
+            ],
+            'التحاليل' => [
                 'data' => AnalysisController::getAnalysis($name),
                 'roles' => [
                     'type' => AnalysisType::all(['id', 'name']),
                     'patient' => User::query()->whereRelation('roles', 'name', '=', 'المرضى')->get(['id', 'name'])
                 ],
-            ]);
-        else if ($title == 'detection')
-            return response()->json([
-                'data' => DetectionController::getDetection($name),
-                'roles' => [
-                    'type' => DetectionType::all(['id', 'name']),
-                    'patient' => User::query()->whereRelation('roles', 'name', '=', 'المرضى')->get(['id', 'name'])
-                ],
-            ]);
-        else if ($title == 'dose')
-            return response()->json([
+            ],
+            'الجرعات' => [
                 'data' => DoseController::getDose($name),
                 'roles' => [
                     'type' => DoseType::all(['id', 'name']),
                     'patient' => User::query()->whereRelation('roles', 'name', '=', 'المرضى')->get(['id', 'name'])
                 ],
-            ]);
-        else if ($title == 'activity')
-            return response()->json([
-                'data' => ActivityController::getActivity($name),
+            ],
+            'الكشف المبكر' => [
+                'data' => DetectionController::getDetection($name),
+                'roles' => [
+                    'type' => DetectionType::all(['id', 'name']),
+                    'patient' => User::query()->whereRelation('roles', 'name', '=', 'المرضى')->get(['id', 'name'])
+                ],
+            ],
+            'معلومات التطبيق' => [
+                'data' => AppInfoController::getAppIngo(),
                 'roles' => [],
-            ]);
-        else
-            return response()->json([
+            ],
+            default => [
                 'data' => [],
                 'roles' => [],
-            ]);
+            ]
+        };
+
+        return response()->json($data);
     }
 }
