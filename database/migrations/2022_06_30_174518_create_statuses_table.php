@@ -16,9 +16,12 @@ return new class extends Migration
         Schema::create('statuses', function (Blueprint $table) {
             $table->id();
             $table->char('status', 20);
-            $table->morphs('status');
             $table->timestamps();
         });
+
+        \App\Models\Status::query()->create(['status'=>'WAIT']);
+        \App\Models\Status::query()->create(['status'=>'CANCEL']);
+        \App\Models\Status::query()->create(['status'=>'DONE']);
     }
 
     /**

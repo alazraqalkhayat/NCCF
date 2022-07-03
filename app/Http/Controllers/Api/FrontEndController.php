@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Dashboard\Content\ActivityController;
-use App\Http\Controllers\Dashboard\Content\AnalysisController;
-use App\Http\Controllers\Dashboard\Content\DoseController;
+use App\Http\Controllers\Utility\QueryController;
 use App\Models\Analysis;
 use App\Models\Detection;
 use App\Models\Dose;
@@ -37,12 +36,12 @@ class FrontEndController extends Controller
 
     public function getAnalysis(Request $request)
     {
-        return response()->json(AnalysisController::getAnalysis(userId: $request->user()->id));
+        return response()->json(QueryController::getADDData(Analysis::query(), userId: $request->user()->id));
     }
 
     public function getDose(Request $request)
     {
-        return response()->json(DoseController::getDose(userId: $request->user()->id));
+        return response()->json(QueryController::getADDData(Dose::query(), userId: $request->user()->id));
     }
 
     public function analysisCansel(Request $request, Analysis $analysis)
@@ -77,18 +76,27 @@ class FrontEndController extends Controller
 
     public function eventsActivities(Request $request)
     {
-        return response()->json(ActivityController::getActivity());
+        $data = ActivityController::getActivity();
+        $data->map(function ($v) {
+            if (str_contains($v->path, 'image'))
+                $v['mediaType'] = 'image';
+            else
+                $v['mediaType'] = 'video';
+        });
+
+        return response()->json($data);
     }
 
     public static function cansel($data, $request)
     {
-        $cansol = $data->status()->update([
-            'status' => 'CANSEL',
-        ]);
-        if ($cansol)
-            $data->reson()->create([
-                'reson' => $request->reson
+        $cancel = QueryController::status('cancel');
+        if ($cancel) {
+            $data->reason()->create([
+                'reason' => $request->reason,
+                'status' => $cancel->id
             ]);
+            $data->update(['status' => $cancel->id]);
+        }
 
         return response()->json('تم الالغاء بنجاح.');
     }

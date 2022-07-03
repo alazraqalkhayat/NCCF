@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('doses', function (Blueprint $table) {
             $table->Id();
             $table->foreignId('type');
+            $table->foreignId('status');
             $table->foreignId('patient');
             $table->date('date');
             $table->timestamps();

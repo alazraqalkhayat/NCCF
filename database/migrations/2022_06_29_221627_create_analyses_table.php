@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('date');
             $table->foreignId('patient');
             $table->foreignId('type');
+            $table->foreignId('status');
             $table->timestamps();
         });
     }

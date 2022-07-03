@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\Content\ADDController;
 use App\Http\Controllers\Dashboard\Content\AnalysisController;
 use App\Http\Controllers\Dashboard\Content\AppInfoController;
 use App\Http\Controllers\Dashboard\Content\DetectionController;
@@ -89,6 +90,13 @@ Route::middleware([
         Route::get('content/', [ContentController::class, 'index'])->name('content.index');
         Route::post('content/get-records', [ContentController::class, 'getRecords'])->name('content.getRecords');
 
+//        ADD routes
+        Route::prefix('content')->name('a.d.d.')->controller(ADDController::class)->group(function (){
+            Route::post('update/{id}/{type}', 'update')->name('update');
+            Route::post('store/{type}', 'store')->name('store');
+            Route::get('delete/{id}/{type}', 'delete')->name('delete');
+        });
+
         // types
         Route::prefix('types')->controller(TypesController::class)->name('types.')->group(function () {
             Route::get('/', [TypesController::class, 'index'])->name('index');
@@ -107,82 +115,14 @@ Route::middleware([
         // for app info
         Route::post('app-info/update/{appInfo}', [AppInfoController::class,'update'])->name('app_info.update');
 
-        // for patient detection
-        Route::prefix('patient-detection')
-            ->controller(DetectionController::class)
-            ->name('detection.')
-            ->group(function () {
-                Route::post('update/{detection}', 'update')->name('update');
-                Route::post('store', 'store')->name('store');
-                Route::get('delete/{detection}', 'delete')->name('delete');
-            });
-
-        // for patient detection type
-        Route::prefix('patient-detection-type')
-            ->controller(DetectionController::class)
-            ->name('patient-detection-type.')
-            ->group(function () {
-                Route::post('update/{id}', 'update')->name('update');
-                Route::post('store', 'store')->name('store');
-                Route::get('delete/{id}', 'delete')->name('delete');
-            });
-
         // for activity
         Route::prefix('activity')
-            ->middleware('role:الاستقبال')
             ->controller(ActivityController::class)
             ->name('activity.')
             ->group(function () {
-                Route::get('/', 'index')->name('index');
                 Route::post('update/{activity}', 'update')->name('update');
                 Route::post('store', 'store')->name('store');
                 Route::get('delete/{activity}', 'delete')->name('delete');
-            });
-
-        // for patient friends
-        Route::prefix('patient-friends')
-            ->controller(DoseController::class)
-            ->name('patient-friends.')
-            ->group(function () {
-                Route::post('update/{id}', 'update')->name('update');
-                Route::post('store', 'store')->name('store');
-                Route::get('delete/{id}', 'delete')->name('delete');
-            });
-
-
-        // for dose
-        Route::prefix('dose')
-            ->controller(DoseController::class)
-            ->name('dose.')
-            ->group(function () {
-                Route::post('update/{dose}', 'update')->name('update');
-                Route::post('store', 'store')->name('store');
-                Route::get('delete/{dose}', 'delete')->name('delete');
-            });
-
-        // for dose type
-
-
-        // for analysis
-        Route::prefix('analysis')
-            ->controller(AnalysisController::class)
-            ->name('analysis.')
-            ->group(function () {
-                Route::post('update/{analysis}', 'update')->name('update');
-                Route::post('store', 'store')->name('store');
-                Route::get('delete/{analysis}', 'delete')->name('delete');
-            });
-
-        // for analysis type
-        Route::prefix('analysis-type')
-            ->controller(AnalysisTypeController::class)
-            ->name('analysis-type.')
-            ->group(function () {
-                Route::get('/', 'index')->name('index');
-                Route::post('update/{id}', 'update')->name('update');
-                Route::post('store', 'store')->name('store');
-                Route::get('delete/{id}', 'delete')->name('delete');
-                Route::post('get-recourds', 'getRecourds')->name('getRecourds');
             });
 
 

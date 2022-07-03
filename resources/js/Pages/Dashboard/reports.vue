@@ -1,8 +1,8 @@
 <template>
-    <app-layout title="reports">
+    <app-layout :title="isType">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                التقارير
+                {{ isType }}
             </h2>
         </template>
         <div class="bg-white h-[80vh] min-w-[80vw] overflow-auto shadow-xl sm:rounded-lg px-6">
@@ -11,20 +11,20 @@
                 <div v-if="isType !== 'معلومات التطبيق'" class="flex w-full items-center justify-between text-sm">
                     <div class="flex items-center justify-center">
                         <div class="flex items-center mx-1">
-                            <JetInput v-model="searchData" type="text" class="text-sm" :placeholder="`${isType}`"/>
+                            <JetInput v-model="searchData" type="text" class="text-sm" :placeholder="`${isType}`" />
                         </div>
                         <secondary-button class="mx-1" @click="getRecords">بحث</secondary-button>
                     </div>
                 </div>
                 <div class="flex items-center text-sm mt-2 w-full">
                     <div v-for="item in type" @click="active(item.title)" :key="item"
-                         :class="`mx-2 border-t border-r border-l text-sm rounded-t-md cursor-pointer px-4 py-1 ${item.title == isType ? 'bg-gray-500 text-white' : ''}`">
+                        :class="`mx-2 border-t border-r border-l text-sm rounded-t-md cursor-pointer px-4 py-1 ${item.title == isType ? 'bg-gray-500 text-white' : ''}`">
                         {{ item.title }}
                     </div>
                 </div>
             </div>
 
-            <report :getData="showData.data"/>
+            <report :getData="showData.data" />
         </div>
 
     </app-layout>
@@ -39,22 +39,22 @@ import JetInput from "../../Jetstream/Input";
 
 export default {
     name: "reports",
-    components: {Report, PrimaryButton, SecondaryButton, AppLayout,JetInput},
+    components: { Report, PrimaryButton, SecondaryButton, AppLayout, JetInput },
     props: {
         getData: [],
     },
     mounted() {
         this.isType = this.type[0].title
     },
-    data(){
+    data() {
         return {
             type: [
                 { title: 'الدعم النفسي', url: 'psychology_aids.' },
                 { title: 'اصدقاء مرضى السرطان', url: 'patient_friends.' },
             ],
             isType: '',
-            searchData:'',
-            showData:{},
+            searchData: '',
+            showData: {},
         };
     },
     created() {
@@ -81,5 +81,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

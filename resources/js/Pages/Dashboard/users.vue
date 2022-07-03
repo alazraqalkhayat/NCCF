@@ -1,8 +1,8 @@
 <template>
-    <AppLayoutVue title="Classes">
+    <AppLayoutVue :title="isType">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                المحاضرة
+                {{ isType }}
             </h2>
         </template>
         <div class="bg-white h-[80vh] min-w-[80vw] overflow-auto shadow-xl sm:rounded-lg px-6">

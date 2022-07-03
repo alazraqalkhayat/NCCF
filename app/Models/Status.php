@@ -11,8 +11,23 @@ class Status extends Model
 
     protected $fillable = ['status'];
 
-    public function status()
+    public function dose()
     {
-        $this->morphTo();
+        return $this->hasMany(Dose::class, 'status');
+    }
+
+    public function detection()
+    {
+        return $this->hasMany(Detection::class, 'status');
+    }
+
+    public function analysis()
+    {
+        return $this->hasMany(Analysis::class, 'status');
+    }
+
+    public function reson()
+    {
+        return $this->hasMany(Reason::class,'status');
     }
 }

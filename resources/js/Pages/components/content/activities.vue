@@ -31,7 +31,7 @@
             </template>
             <!-- model-content -->
             <template #model-content>
-                <div class="my-2 w-full">
+                <div class="w-full grid grid-cols-2 gap-6">
                     <div dir="rtl" class="w-full">
                         <JetLable class="mb-2" value="النوع" />
 
@@ -40,13 +40,15 @@
                         <JetInputError :message="addDataError.type[0]" class="mt-2" />
                     </div>
                     <div dir="rtl" class="w-full h-72">
-                        <JetLable class="mb-2" value="الصورة" />
+                        <JetLable class="mb-2" value="الصورة او الفيديو" />
 
-                        <input id="addImage" type="file" class="mt-1 hidden" @change="setImage" placeholder="الصورة" />
+                        <input id="addImage" type="file" pattern="[*.[jpg|png|mp4|mkv]]"
+                            class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                            @change="setImage" placeholder="الملف" />
 
-                        <label for="addImage" class="w-full shadow-lg rounded-lg h-full">
-                            <img :src="image" class="w-full h-full object-cover" alt="">
-                        </label>
+                        <!--                        <label for="addImage" class="w-full shadow-lg rounded-lg h-full">-->
+                        <!--                            <img :src="image" class="w-full h-full object-cover" alt="">-->
+                        <!--                        </label>-->
 
                         <JetInputError :message="addDataError.path[0]" class="mt-2" />
                     </div>
@@ -78,7 +80,7 @@
             </template>
             <!-- model-content -->
             <template #model-content>
-                <div class="my-2 w-full">
+                <div class="w-full grid grid-cols-2 gap-6">
                     <div dir="rtl" class="w-full">
                         <JetLable class="mb-2" value="النوع" />
 
@@ -87,13 +89,11 @@
                         <JetInputError :message="editDataError.type[0]" class="mt-2" />
                     </div>
                     <div dir="rtl" class="w-full h-72">
-                        <JetLable class="mb-2" value="الصورة" />
+                        <JetLable class="mb-2" value="الصورة او الفيديو" />
 
-                        <input id="editImage" type="file" class="mt-1 hidden" @change="setImage" placeholder="الصورة" />
-
-                        <label for="editImage" class="w-full shadow-lg rounded-lg h-full">
-                            <img :src="image" class="w-full h-full object-cover" alt="">
-                        </label>
+                        <input type="file" accept="image/*,video/*"
+                            class="file:bg-indigo-100 file:border-none border-none file:outline-hidden outline-hidden file:rounded-lg file:hover:text-white file:hover:bg-indigo-800  p-1  focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                            @change="setImage" placeholder="الملف" />
 
                         <JetInputError :message="editDataError.path[0]" class="mt-2" />
                     </div>
@@ -209,6 +209,7 @@ export default {
             let form = new FormData();
             form.append('path', this.addData.path)
             form.append('type', this.addData.type)
+            form.append('fileType', this.addData.path.type.includes('image') ? 'image' : 'video')
             axios.post(route('activity.store'), form).then(r => {
                 this.showData.push(r.data[0])
                 this.$emit('closeModel')
@@ -220,16 +221,25 @@ export default {
                     path: [''],
                     type: ['']
                 }
-                this.iamge = ''
+                this.$notify({
+                    title: 'تم',
+                    text: 'تمت العملية بنجاح',
+                    type: 'success',
+                });
 
             }).catch(er => {
-
+                this.$notify({
+                    title: 'Error',
+                    text: 'حدث خطاء ما!',
+                    type: 'warn',
+                });
             })
         },
         update() {
             let form = new FormData();
             form.append('path', this.editData.path)
             form.append('type', this.editData.type)
+            form.append('fileType', this.addData.path.type.includes('image') ? 'image' : 'video')
             axios.post(route('activity.update', { activity: this.editData.id }), form).then(r => {
                 this.showData = this.showData.map(v => {
                     if (v.id == this.editData.id) v = r.data[0]
@@ -244,9 +254,17 @@ export default {
                     path: [''],
                     type: [''],
                 }
-                this.iamge = ''
+                this.$notify({
+                    title: 'تم',
+                    text: 'تمت العملية بنجاح',
+                    type: 'success',
+                });
             }).catch(er => {
-
+                this.$notify({
+                    title: 'Error',
+                    text: 'حدث خطاء ما!',
+                    type: 'warn'
+                });
             })
         },
         deleteFun() {
@@ -261,12 +279,21 @@ export default {
                     path: [''],
                     type: [''],
                 }
+                this.$notify({
+                    title: 'تم',
+                    text: 'تمت العملية بنجاح',
+                    type: 'success',
+                });
             }).catch(er => {
-
+                this.$notify({
+                    title: 'Error',
+                    text: 'حدث خطاء ما!',
+                    type: 'warn',
+                });
             })
         },
         setImage(e) {
-            this.image = URL.createObjectURL(e.target.files[0])
+            console.log(e.target.files[0])
             this.addData.path = e.target.files[0]
             this.editData.path = e.target.files[0]
         }

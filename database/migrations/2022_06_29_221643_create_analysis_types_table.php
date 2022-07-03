@@ -17,6 +17,7 @@ return new class extends Migration
         Schema::create('analysis_types', function (Blueprint $table) {
             $table->Id();
             $table->char('name', 50);
+
             $table->timestamps();
         });
 

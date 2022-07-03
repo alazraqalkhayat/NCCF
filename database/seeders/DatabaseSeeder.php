@@ -35,8 +35,14 @@ class DatabaseSeeder extends Seeder
             'remember_token' => Str::random(10),
         ]);
 
-        $patients = User::factory(10)->hasDose(10)->hasAnalysis(10)->hasDetection(10)->hasPsychologicalAid(10)->create();
+        $patients = User::factory(10)
+            ->hasDose(10)
+            ->hasAnalysis(10)
+            ->hasDetection(10)
+            ->hasPsychologicalAid(10)
+            ->create();
         $doctors = User::factory(10)->create();
+
         Activities::factory(10)->create();
         PatientFrinds::factory(10)->create();
 

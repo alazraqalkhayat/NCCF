@@ -20,6 +20,8 @@ class DoseFactory extends Factory
             'date' => $this->faker->dateTimeBetween('-1 years', 'now'),
             'type' => rand(1, 2),
             // 'patient' => rand(1, 2),
+            'status' => rand(1,3)
+
         ];
     }
 }

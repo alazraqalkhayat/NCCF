@@ -1,8 +1,8 @@
 <template>
-    <AppLayoutVue title="Classes">
+    <AppLayoutVue :title="isTitle">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                ادارة الانواع
+                {{ isTitle }}
             </h2>
         </template>
         <div class="bg-white h-[80vh] min-w-[80vw] overflow-auto shadow-xl sm:rounded-lg px-6">
@@ -10,22 +10,22 @@
             <div class="w-full border-b-2 h-1/5 flex items-center justify-between">
                 <div class="flex items-center justify-around text-sm">
                     <div v-for="item in type" @click="active(item.type)" :key="item.url"
-                         :class="`mx-2 border-t border-r border-l  rounded-t-md cursor-pointer px-4 py-1 ${item.type === isType ? 'bg-gray-500 text-white' : ''}`">
+                        :class="`mx-2 border-t border-r border-l  rounded-t-md cursor-pointer px-4 py-1 ${item.type === isType ? 'bg-gray-500 text-white' : ''}`">
                         {{ item.title }}
                     </div>
                 </div>
                 <div class="flex items-center justify-around text-sm">
                     <div class="flex items-center mx-1">
-                        <JetInput v-model="searchData" type="text" class="text-sm" :placeholder="`${isType}`"/>
+                        <JetInput v-model="searchData" type="text" class="text-sm" :placeholder="`${isType}`" />
                     </div>
                     <SecondaryButton class="mx-1" @click="getRecords">بحث</SecondaryButton>
                     <PrimaryButton @click="showForm.add = true" class="mx-1">اضافة</PrimaryButton>
                 </div>
             </div>
-            <Types :getData="showData.data" :addForm="showForm.add"
-                   :updateForm="showForm.update" :roles="showData.roles" :type="isType"
-                   @closeModel="showForm.update = false; showForm.add = false" :editData="editData"
-            />
+
+            <Types :getData="showData.data" :addForm="showForm.add" :updateForm="showForm.update"
+                :roles="showData.roles" :type="isType" @closeModel="showForm.update = false; showForm.add = false"
+                :editData="editData" />
 
         </div>
 
@@ -63,17 +63,19 @@ export default {
                 update: false
             },
             type: [
-                {title: 'انواع التحاليل', type: 'ANALYSIS'},
-                {title: 'انواع الجرعات', type: 'DOSE'},
-                {title: 'انواع الكشف', type: 'DEDICATION'},
+                { title: 'انواع التحاليل', type: 'ANALYSIS' },
+                { title: 'انواع الجرعات', type: 'DOSE' },
+                { title: 'انواع الكشف', type: 'DEDICATION' },
             ],
             isType: '',
+            isTitle: '',
             editData: {},
         }
     },
     created() {
         this.showData['data'] = this.getData
         this.showData['roles'] = this.roles
+        this.isType = this.type[0].type
     },
     methods: {
 
@@ -91,6 +93,12 @@ export default {
         },
         active(title) {
             this.isType = title
+            this.type.map(v => {
+                if (v.type == title) {
+                    this.isTitle = v.title
+                }
+                return v
+            })
             this.getRecords()
         },
     },

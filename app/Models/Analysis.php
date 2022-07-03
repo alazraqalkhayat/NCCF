@@ -4,30 +4,32 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Analysis extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['date', 'type', 'patient'];
+    protected $fillable = ['date', 'type', 'patient','status'];
 
-    public function type()
+    public function type(): BelongsTo
     {
         return $this->belongsTo(AnalysisType::class, 'type');
     }
 
-    public function patient()
+    public function patient(): BelongsTo
     {
         return $this->belongsTo(User::class, 'patient');
     }
 
-    public function status()
+    public function status(): BelongsTo
     {
-        return $this->morphMany(Status::class, 'status');
+        return $this->belongsTo(Status::class, 'status');
     }
 
-    public function reson()
+    public function reason(): MorphMany
     {
-        return $this->morphMany(Reson::class, 'reson');
+        return $this->morphMany(Reason::class, 'reason');
     }
 }

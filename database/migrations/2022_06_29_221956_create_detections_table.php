@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('detections', function (Blueprint $table) {
             $table->Id();
             $table->date('date');
+            $table->foreignId('status');
             $table->foreignId('patient');
             $table->foreignId('type');
             $table->timestamps();

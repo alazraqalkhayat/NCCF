@@ -7,8 +7,7 @@
                 <span v-text="'الاسم'" class="mx-auto w-1/5 text-gray-600"></span>
             </div>
             <div class="h-4/5 overflow-auto snap-y scroll-smooth span-center bg-gray-50 p-1">
-                <div
-                    class="flex bg-white min-h-[6vh] rounded-lg items-center text-center text-sm shadow-lg my-2 hover:bg-gray-900 hover:text-white cursor-pointer"
+                <div class="flex bg-white min-h-[6vh] rounded-lg items-center text-center text-sm shadow-lg my-2 hover:bg-gray-900 hover:text-white cursor-pointer"
                     v-for="(item, index) in showData" :key="index" @click="editForm(item.id)">
                     <span v-text="'#' + item.id" class="mx-auto w-1/5 "></span>
                     <span v-text="item.name" class="mx-auto w-1/5 "></span>
@@ -28,11 +27,11 @@
             <template #model-content>
                 <div class="my-2">
                     <div dir="rtl" class="w-full">
-                        <JetLabel class="mb-2" value="الاسم"/>
+                        <JetLabel class="mb-2" value="الاسم" />
 
-                        <JetInput v-model="addData.name" type="text" class="mt-1 block" placeholder="الاسم"/>
+                        <JetInput v-model="addData.name" type="text" class="mt-1 block" placeholder="الاسم" />
 
-                        <JetInputError :message="addDataError.name[0]" class="mt-2"/>
+                        <JetInputError :message="addDataError.name[0]" class="mt-2" />
                     </div>
                 </div>
 
@@ -60,11 +59,11 @@
             <template #model-content>
                 <div class=" my-2">
                     <div dir="rtl" class="w-full">
-                        <JetLabel class="mb-2" value="الاسم"/>
+                        <JetLabel class="mb-2" value="الاسم" />
 
-                        <JetInput v-model="editData.name" type="text" class="mt-1 block" placeholder="الاسم"/>
+                        <JetInput v-model="editData.name" type="text" class="mt-1 block" placeholder="الاسم" />
 
-                        <JetInputError :message="editDataError.name[0]" class="mt-2"/>
+                        <JetInputError :message="editDataError.name[0]" class="mt-2" />
                     </div>
                 </div>
             </template>
@@ -126,7 +125,7 @@ export default {
     },
     data() {
         return {
-            isType:this.type,
+            isType: this.type,
             showForm: {
                 add: this.addForm,
                 update: this.updateForm
@@ -148,6 +147,7 @@ export default {
                 default: ''
             },
             showData: this.getData,
+            showRoles: this.roles,
             checkRole: [],
         }
     },
@@ -161,7 +161,10 @@ export default {
         getData: function (nv, ov) {
             this.showData = nv
         },
-        type:function (nv,ov){
+        roles: function (nv, ov) {
+            this.showRoles = nv
+        },
+        type: function (nv, ov) {
             this.isType = nv
         }
     },
@@ -188,7 +191,7 @@ export default {
             })
         },
         update() {
-            axios.post(route('types.update', {id: this.editData.id}), {
+            axios.post(route('types.update', { id: this.editData.id }), {
                 name: this.editData.name,
                 type: this.isType,
             }).then(r => {
@@ -211,7 +214,7 @@ export default {
             })
         },
         deleteFun() {
-            axios.post(route('types.delete', {id: this.editData.id}),{
+            axios.post(route('types.delete', { id: this.editData.id }), {
                 type: this.isType
             }).then(r => {
                 this.showData = this.showData.filter(item => item.id !== this.editData.id)

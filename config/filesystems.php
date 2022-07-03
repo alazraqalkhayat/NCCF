@@ -36,7 +36,7 @@ return [
             'throw' => false,
         ],
 
-        'uploade' => [
+        'upload' => [
             'driver' => 'local',
             'root' => public_path('Files'),
             'throw' => true,
