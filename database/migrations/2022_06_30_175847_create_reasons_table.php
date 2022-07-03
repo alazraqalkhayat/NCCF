@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('resons', function (Blueprint $table) {
             $table->id();
-            $table->text('reson');
-            $table->morphs('reson');
+            $table->text('reason');
+            $table->foreignId('status')->nullable();
+            $table->morphs('reason');
             $table->timestamps();
         });
     }
