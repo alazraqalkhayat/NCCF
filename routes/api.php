@@ -34,7 +34,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 
     // detection details
-    Route::post('detection-details/{detection}', [FrontEndController::class, 'detectionDetails']); // return date , status and user name
+    Route::post('detection-details', [FrontEndController::class, 'detectionDetails']); // return date , status and user name
 
     // detection cancel
     Route::post('detection-cansel/{detection}', [FrontEndController::class, 'detectionCansel']); // get reson  and change status
