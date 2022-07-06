@@ -10,7 +10,8 @@
                 <span v-text="'الحالة'" class="mx-auto w-1/6 text-gray-600"></span>
             </div>
             <div class="h-4/5 overflow-auto snap-y scroll-smooth span-center bg-gray-50 p-1">
-                <div class="flex bg-white min-h-[6vh] rounded-lg items-center text-center text-sm shadow-lg my-2 hover:bg-gray-900 hover:text-white cursor-pointer"
+                <div
+                    class="flex bg-white min-h-[6vh] rounded-lg items-center text-center text-sm shadow-lg my-2 hover:bg-gray-900 hover:text-white cursor-pointer"
                     v-for="(item, index) in showData" :key="index" @click="editForm(item.id)">
                     <span v-text="'#' + item.id" class="mx-auto w-1/6 "></span>
                     <span v-text="item.patient" class="mx-auto w-1/6 "></span>
@@ -32,34 +33,34 @@
             <template #model-content>
                 <div class="grid grid-cols-2 gap-4 my-2">
                     <div dir="rtl" class="w-full">
-                        <JetLable class="mb-2" value="التاريخ" />
+                        <JetLable class="mb-2" value="التاريخ"/>
 
-                        <JetInput v-model="addData.date" type="date" class="mt-1 block" placeholder="التاريخ" />
+                        <JetInput v-model="addData.date" type="date" class="mt-1 block" placeholder="التاريخ"/>
 
-                        <JetInputError :message="addDataError.date[0]" class="mt-2" />
+                        <JetInputError :message="addDataError.date[0]" class="mt-2"/>
                     </div>
                     <div dir="rtl" class="w-full">
-                        <JetLable class="mb-2" value="المريض" />
+                        <JetLable class="mb-2" value="المريض"/>
 
                         <select v-model="addData.patient"
-                            class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm max-w-full">
+                                class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm max-w-full">
                             <option class="border-gray-300 rounded-md shadow-sm"
-                                v-for="(item, index) in showRoles.patient" :key="index" :value="item.id"
-                                v-text="item.name"></option>
+                                    v-for="(item, index) in showRoles.patient" :key="index" :value="item.id"
+                                    v-text="item.name"></option>
                         </select>
 
-                        <JetInputError :message="addDataError.patient[0]" class="mt-2" />
+                        <JetInputError :message="addDataError.patient[0]" class="mt-2"/>
                     </div>
                     <div dir="rtl" class="w-full">
-                        <JetLable class="mb-2" value="النوع" />
+                        <JetLable class="mb-2" value="النوع"/>
 
                         <select v-model="addData.type"
-                            class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm max-w-full">
+                                class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm max-w-full">
                             <option class="border-gray-300 rounded-md shadow-sm" v-for="(item, index) in showRoles.type"
-                                :key="index" :value="item.id" v-text="item.name"></option>
+                                    :key="index" :value="item.id" v-text="item.name"></option>
                         </select>
 
-                        <JetInputError :message="addDataError.type[0]" class="mt-2" />
+                        <JetInputError :message="addDataError.type[0]" class="mt-2"/>
                     </div>
                 </div>
             </template>
@@ -86,53 +87,53 @@
             <template #model-content>
                 <div class="grid grid-cols-2 gap-4 my-2">
                     <div dir="rtl" class="w-full">
-                        <JetLable class="mb-2" value="التاريخ" />
+                        <JetLable class="mb-2" value="التاريخ"/>
 
-                        <JetInput v-model="editData.date" type="date" class="mt-1 block" placeholder="التاريخ" />
+                        <JetInput v-model="editData.date" type="date" class="mt-1 block" placeholder="التاريخ"/>
 
-                        <JetInputError :message="editDataError.date[0]" class="mt-2" />
+                        <JetInputError :message="editDataError.date[0]" class="mt-2"/>
                     </div>
                     <div dir="rtl" class="w-full">
-                        <JetLable class="mb-2" value="المريض" />
+                        <JetLable class="mb-2" value="المريض"/>
 
                         <select v-model="editData.patient"
-                            class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm max-w-full">
+                                class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm max-w-full">
                             <option class="border-gray-300 rounded-md shadow-sm" v-for="(item, index) in roles.patient"
-                                :key="index" :value="item.id" v-text="item.name"></option>
+                                    :key="index" :value="item.id" v-text="item.name"></option>
                         </select>
 
-                        <JetInputError :message="editDataError.patient[0]" class="mt-2" />
+                        <JetInputError :message="editDataError.patient[0]" class="mt-2"/>
                     </div>
                     <div dir="rtl" class="w-full">
-                        <JetLable class="mb-2" value="الحالة" />
+                        <JetLable class="mb-2" value="الحالة"/>
 
                         <select @change="havReason" v-model="editData.status"
-                            class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm max-w-full">
+                                class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm max-w-full">
                             <option class="border-gray-300 rounded-md shadow-sm" v-for="(item, index) in roles.status"
-                                :key="index" :value="item.id" v-text="item.status"></option>
+                                    :key="index" :value="item.id" v-text="item.status"></option>
                         </select>
 
-                        <JetInputError :message="editDataError.status[0]" class="mt-2" />
+                        <JetInputError :message="editDataError.status[0]" class="mt-2"/>
                     </div>
                     <div dir="rtl" class="w-full">
-                        <JetLable class="mb-2" value="النوع" />
+                        <JetLable class="mb-2" value="النوع"/>
 
                         <select v-model="editData.type"
-                            class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm max-w-full">
+                                class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm max-w-full">
                             <option class="border-gray-300 rounded-md shadow-sm" v-for="(item, index) in roles.type"
-                                :key="index" :value="item.id" v-text="item.name"></option>
+                                    :key="index" :value="item.id" v-text="item.name"></option>
                         </select>
 
-                        <JetInputError :message="editDataError.type[0]" class="mt-2" />
+                        <JetInputError :message="editDataError.type[0]" class="mt-2"/>
                     </div>
                 </div>
 
                 <div v-if="showReason" dir="rtl" class="w-full">
-                    <JetLable class="mb-2" value="السبب" />
+                    <JetLable class="mb-2" value="السبب"/>
 
                     <textarea v-model="editData.reason"
-                        class="border-gray-300 w-full h-32 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                        placeholder="السبب" />
+                              class="border-gray-300 w-full h-32 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                              placeholder="السبب"/>
 
                     <!--                    <JetInputError :message="editDataError.aboutUs[0]" class="mt-2"/>-->
                 </div>
@@ -179,31 +180,8 @@ export default {
         JetLable,
     },
     props: {
-        getData: {
-            type: Array,
-            default: []
-        },
-        roles: {
-            type: Object,
-            default: {
-                status: [{
-                    id: '',
-                    name: ''
-                }],
-                type: [
-                    {
-                        id: '',
-                        name: ''
-                    }
-                ],
-                patient: [
-                    {
-                        id: '',
-                        name: ''
-                    }
-                ]
-            }
-        },
+        getData: {},
+        roles: {},
         addForm: false,
         updateForm: false,
         type: '',
@@ -266,7 +244,7 @@ export default {
     },
     methods: {
         store() {
-            axios.post(route('a.d.d.store', { type: this.isType }), {
+            axios.post(route('a.d.d.store', {type: this.isType}), {
                 date: this.addData.date,
                 type: this.addData.type,
                 patient: this.addData.patient,
@@ -332,7 +310,7 @@ export default {
             this.showForm.update = true
         },
         update() {
-            axios.post(route('a.d.d.update', { id: this.editData.id, type: this.isType }), {
+            axios.post(route('a.d.d.update', {id: this.editData.id, type: this.isType}), {
                 date: this.editData.date,
                 type: this.editData.type,
                 patient: this.editData.patient,
@@ -384,7 +362,7 @@ export default {
             })
         },
         deleteFun() {
-            axios.get(route('a.d.d.delete', { id: this.editData.id, type: this.isType })).then(r => {
+            axios.get(route('a.d.d.delete', {id: this.editData.id, type: this.isType})).then(r => {
                 this.showData = this.showData.filter(v => v.id != this.editData.id)
                 this.showForm.update = false;
                 this.addData = {

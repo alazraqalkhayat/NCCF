@@ -1,69 +1,117 @@
 <template>
     <div>
         <div v-for="(item, i) in links" :key="i"
-            class="w-full h-12 rounded-lg text-center px-auto py-2 flex items-center justify-center">
+             class="w-full text-sm h-auto rounded-lg text-center px-auto p-2">
             <!-- Navigation Links -->
-            <NavLink :href="route(item.url)" :active="route().current(item.url)"
-                @click="item.isShow = route().current(item.url)">
-                <span>{{ item.title }}</span>
-            </NavLink>
+
+            <div @click="active(item) "
+                 :class="item.isShow ? 'bg-gray-300 text-white' : ' hover:bg-gray-100 hover:text-gray-500 '"
+                 class="h-auto w-full text-center py-2 my-1 cursor-pointer rounded-md">
+                {{ item.title }}
+            </div>
+
+            <div v-if="item.subUrl"
+                 :class="item.isShow ? ' h-auto ' : ' h-0 '"
+                 class="transition-all block duration-300 ease-linear w-full flex items-center justify-center">
+                <div class="mx-auto w-full">
+                    <!--                                        <div @click="$emit('getRecord',item); active(item.type)"-->
+                    <!--                                             :style="item.isShow ? 'font-size:10pt' : 'font-size:0pt; height:0px;'"-->
+                    <!--                                             :class="item.isShow ? `${item.isShow ? ' h-10 py-2 my-1 ' : ' h-0 '}` : ` ${item.isShow ? ' h-12 py-2 my-1 ' : ' h-0 '} hover:bg-gray-100 hover:text-gray-500 `"-->
+                    <!--                                             class="w-full text-center transition-all block duration-300 ease-linear">{{ item.title }}-->
+                    <!--                                        </div>-->
+                    <div @click="active(subItem)" v-for="(subItem,k) in item.subUrl"
+                         :key="k" :style="item.isShow ? 'font-size:10pt' : 'font-size:0pt'"
+                         :class="item.isShow ? `${subItem.isShow ?' bg-indigo-400 ':''} 'h-10 py-2 my-1 '` : ' h-0 '"
+                         class=" rounded-lg cursor-pointer text-center w-full px-auto flex items-center justify-center transition-all block duration-300 ease-linear hover:text-gray-50 hover:bg-indigo-400 focus:outline-none focus:text-gray-50 "
+                         v-text="subItem.title">
+                    </div>
+                </div>
+            </div>
         </div>
+
     </div>
 </template>
 
 <script>
 import NavLink from '../Jetstream/NavLink.vue';
+
 export default {
     data() {
         return {
             links: [
                 {
-                    url: "dashboard",
+                    type: "DASHBOARD",
                     title: "Dashboard",
                     isShow: false,
-                    subUrl: null
+                    subUrl: []
                 },
                 {
-                    url: "content.index",
+                    type: "CONTENT",
                     title: "ادارة المحتوى",
                     isShow: false,
-                    subUrl: null
+                    subUrl: [
+                        {title: 'التحاليل', type: 'ANALYSIS', isShow: false},
+                        {title: 'الجرعات', type: 'DOSE', isShow: false},
+                        {title: 'الكشف المبكر', type: 'DETECTION', isShow: false},
+                        {title: 'الانشطة والفعاليات', type: 'ACTIVITIES', isShow: false},
+                        {title: 'معلومات التطبيق', type: 'APP_INFO', isShow: false},
+                    ]
                 },
                 {
-                    url: "types.index",
+                    type: "TYPES",
                     title: "ادارة الانواع",
                     isShow: false,
-                    subUrl: null
+                    subUrl: [
+                        {title: 'انواع التحاليل', type: 'ANALYSIS_TYPE', isShow: false},
+                        {title: 'انواع الجرعات', type: 'DOSE_TYPE', isShow: false},
+                        {title: 'انواع الكشف', type: 'DEDICATION_TYPE', isShow: false}
+                    ]
                 },
                 {
-                    url: "reports.index",
+                    type: "REPORTS",
                     title: "التقارير",
                     isShow: false,
-                    subUrl: null
+                    subUrl: [
+                        {title: 'الدعم النفسي', type: 'PSYCHOLOGICAL_AID', isShow: false},
+                        {title: 'اصدقاء مرضى السرطان', type: 'PATIENT_FRIENDS', isShow: false},
+                    ]
                 },
                 {
                     url: "user.index",
                     title: "ادارة المستحدمين",
-                    subUrl: {
-                        user: {
-                            url: "user.index",
-                            title: "User"
-                        },
-                        role: {
-                            url: "user.role",
-                            title: "User"
-                        },
-                        promission: {
-                            url: "user.promission",
-                            title: "User"
-                        },
-                    },
-                    isShow: false
+                    subUrl: [
+                        {type: 'المستخدمين', title: "User", isShow: false},
+                        {title: "انواع المستخدمين", type: 'ROLE', isShow: false},
+                        {title: "الصلاحيات", type: 'PERMISSION', isShow: false},
+                    ],
                 },
-            ]
+            ],
+            isType: {}
         }
     },
-    components: { NavLink }
+    components: {NavLink},
+    created() {
+        this.active(this.links[0])
+    },
+    methods: {
+        active(item) {
+            this.links = this.links.map(v => {
+                let subShow = false
+                v.subUrl.map(value => {
+                    value.isShow = value.type === item.type
+                    if (value.type === item.type) {
+                        subShow = true
+                    }
+                    return value
+                })
+                if (!subShow) {
+                    v.isShow = v.type === item.type
+                }
+                return v
+            })
+            this.$emit('getRecord', item);
+        }
+    }
 }
 </script>
 

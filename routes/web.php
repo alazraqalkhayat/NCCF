@@ -7,6 +7,7 @@ use App\Http\Controllers\Dashboard\Content\DetectionController;
 use App\Http\Controllers\Dashboard\Content\DoseController;
 use App\Http\Controllers\Dashboard\Content\ActivityController;
 use App\Http\Controllers\Dashboard\ContentController;
+use App\Http\Controllers\Dashboard\MainController;
 use App\Http\Controllers\Dashboard\ReportsController;
 use App\Http\Controllers\Dashboard\TypesController;
 use App\Http\Controllers\Dashboard\Users\PermissionController;
@@ -86,6 +87,9 @@ Route::middleware([
 
         // start for patient management api
 
+        // get main.getRecourds
+        Route::post('get-records',[MainController::class , 'getRecords'])->name('main.getRecords');
+
         // content
         Route::get('content/', [ContentController::class, 'index'])->name('content.index');
         Route::post('content/get-records', [ContentController::class, 'getRecords'])->name('content.getRecords');
@@ -99,7 +103,7 @@ Route::middleware([
 
         // types
         Route::prefix('types')->controller(TypesController::class)->name('types.')->group(function () {
-            Route::get('/', [TypesController::class, 'index'])->name('index');
+//            Route::get('/', [TypesController::class, 'index'])->name('index');
             Route::post('get-records', [TypesController::class, 'getRecords'])->name('getRecords');
             Route::post('update/{id}', 'update')->name('update');
             Route::post('store', 'store')->name('store');

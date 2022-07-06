@@ -23,7 +23,7 @@ class TypesController extends Controller
         ]);
     }
 
-    public function getTypes($class, $name = null, $id = null)
+    public static function getTypes($class, $name = null, $id = null)
     {
         return $class->when($name, fn($query, $name) => $query->where('name', 'like', '%' . $name . '%'))
             ->when($id, fn($query, $id) => $query->where('id', '=', $id))

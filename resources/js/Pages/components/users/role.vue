@@ -19,7 +19,7 @@
                         </div>
                     </snap>
                     <!-- <snap class="mx-auto w-2/6 flex items-center justify-center">
-                        <div class="flex items-center justify-center" v-for="(promission, i) in item.promissions"
+                        <div class="flex items-center justify-center" v-for="(promission, i) in item.permissions"
                             :key="i">
                             <div class="rounded-md px-2 mx-2 py-1  text-sm bg-indigo-300 bg-opacity-25"
                                 v-for="(item, i) in promission" :key="i" v-text="item"></div>

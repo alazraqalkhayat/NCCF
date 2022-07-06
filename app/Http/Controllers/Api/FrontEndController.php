@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Dashboard\Content\ActivityController;
+use App\Http\Controllers\Dashboard\Content\ADDController;
+use App\Http\Controllers\Dashboard\ContentController;
+use App\Http\Controllers\Dashboard\TypesController;
 use App\Http\Controllers\Utility\QueryController;
 use App\Models\Analysis;
 use App\Models\Detection;
+use App\Models\DetectionType;
 use App\Models\Dose;
 use App\Models\PatientFrinds;
 use App\Models\PsychologicalAid;
@@ -17,16 +21,18 @@ class FrontEndController extends Controller
 
     public function getDetectionType(Request $request): \Illuminate\Http\JsonResponse
     {
-        return response()->json(Detection::all(['id', 'name']));
+        return response()->json(TypesController::getTypes(DetectionType::query()));
     }
 
-    public function detectionDetails(Request $request, Detection $detection)
+    public function detectionDetails(Request $request): \Illuminate\Http\JsonResponse
     {
-        return response()->json([
-            'date' => $detection->date,
-            'patient' => $detection->patiant()->first()->name,
-            'status' => $detection->status()->first()->status
-        ]);
+
+        $user = $request->user();
+        $detectionType = $request->get('type');
+
+        $detection = $user->detection()->where('type','=',$detectionType);
+
+        return response()->json(QueryController::getADDData($detection));
     }
 
     public function detectionCansel(Request $request, Detection $detection)

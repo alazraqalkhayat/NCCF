@@ -26,7 +26,7 @@
                         <snap class="mx-2"> التاريخ :</snap>
                         <JetInput v-model="date" type="date" class="m-1 block h-8" placeholder="البحث" />
                     </div>
-                    <button class="py-2 px-4 mx-2 bg-gray-500 text-white hover:bg-gray-800 rounded-lg"
+                    <button class="py-2 px-4 mx-2 bg-gray-500 text-white hover:bg-secondary rounded-lg"
                         @click="getRecords">بحث</button>
                 </div>
 

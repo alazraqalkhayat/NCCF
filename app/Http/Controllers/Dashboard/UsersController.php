@@ -26,7 +26,7 @@ class UsersController extends Controller
                     'id' => $v['id'],
                     'name' => $v['name'],
                     'acadimyId' => $v['acadimyId'],
-                    'promissions' => $permissions,
+                    'permissions' => $permissions,
                     'email' => $v['email'],
                     'type' => $userRole,
                 ];

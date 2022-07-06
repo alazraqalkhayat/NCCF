@@ -162,7 +162,7 @@ export default {
     },
     data() {
         return {
-            promissions: [],
+            permissions: [],
             image: this.getData.path,
             showForm: {
                 add: this.addForm,

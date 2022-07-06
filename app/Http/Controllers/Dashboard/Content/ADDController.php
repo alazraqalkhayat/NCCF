@@ -72,11 +72,11 @@ class ADDController extends Controller
         return $request->validate($rules);
     }
 
-    public static function getQuery($type): Builder
+    public static function getQuery($type = null): Builder
     {
         return match ($type) {
-            'التحاليل' => Analysis::query(),
-            'الجرعات' => Dose::query(),
+            'ANALYSIS' => Analysis::query(),
+            'DOSE' => Dose::query(),
             default => Detection::query()
         };
     }

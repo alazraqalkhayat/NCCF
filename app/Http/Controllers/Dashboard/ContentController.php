@@ -30,34 +30,34 @@ class ContentController extends Controller
         return inertia('Dashboard/content', self::getADDRecords(Analysis::query(), AnalysisType::query()));
     }
 
-    public function getRecords(Request $request): JsonResponse
-    {
-        $title = $request->get('type');
-        $name = $request->get('name') == '' ? null : $request->get('name');
-
-        $data = match ($title) {
-            'الانشطة والفعاليات' => [
-                'data' => ActivityController::getActivity($name),
-                'roles' => [],
-            ],
-
-            // ADD
-            'التحاليل' => self::getADDRecords(Analysis::query(), AnalysisType::query(), $name),
-            'الجرعات' => self::getADDRecords(Dose::query(), DoseType::query(), $name),
-            'الكشف المبكر' => self::getADDRecords(Detection::query(), DetectionType::query(), $name),
-
-            'معلومات التطبيق' => [
-                'data' => AppInfoController::getAppIngo(),
-                'roles' => [],
-            ],
-            default => [
-                'data' => [],
-                'roles' => [],
-            ]
-        };
-
-        return response()->json($data);
-    }
+//    public function getRecords(Request $request): JsonResponse
+//    {
+//        $title = $request->get('type');
+//        $name = $request->get('name') == '' ? null : $request->get('name');
+//
+//        $data = match ($title) {
+//            'الانشطة والفعاليات' => [
+//                'data' => ActivityController::getActivity($name),
+//                'roles' => [],
+//            ],
+//
+//            // ADD
+//            'التحاليل' => self::getADDRecords(Analysis::query(), AnalysisType::query(), $name),
+//            'الجرعات' => self::getADDRecords(Dose::query(), DoseType::query(), $name),
+//            'الكشف المبكر' => self::getADDRecords(Detection::query(), DetectionType::query(), $name),
+//
+//            'معلومات التطبيق' => [
+//                'data' => AppInfoController::getAppIngo(),
+//                'roles' => [],
+//            ],
+//            default => [
+//                'data' => [],
+//                'roles' => [],
+//            ]
+//        };
+//
+//        return response()->json($data);
+//    }
 
     #[ArrayShape(['data' => "mixed", 'roles' => "array"])] public static function getADDRecords($query, $type, $date = null)
     {
