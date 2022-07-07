@@ -28,15 +28,16 @@ class FrontEndController extends Controller
     {
 
         $user = $request->user();
-        $detectionType = $request->get('type');
+        $detectionType = $request->get('typeId');
 
         $detection = $user->detection()->where('type','=',$detectionType);
 
         return response()->json(QueryController::getADDData($detection));
     }
 
-    public function detectionCansel(Request $request, Detection $detection)
+    public function detectionCansel(Request $request)
     {
+        $detection = Detection::find($request->id);
         return self::cansel($detection, $request);
     }
 
@@ -52,21 +53,23 @@ class FrontEndController extends Controller
 
     public function analysisCansel(Request $request, Analysis $analysis)
     {
+        $analysis = Analysis::find($request->id);
         return self::cansel($analysis, $request);
     }
 
-    public function doseCansel(Request $request, Dose $dose)
+    public function doseCansel(Request $request)
     {
+        $dose = Dose::find($request->id);
         return self::cansel($dose, $request);
     }
 
     public function addPsyologicalAid(Request $request)
     {
-        $addPsyologicalAid = PsychologicalAid::query()->create([
-            'problem' => $request->problem
+        $addPsyologicalAid = $request->user()->psychologicalAid()->create([
+            'problem' => $request->problem,
         ]);
 
-        return response()->json($addPsyologicalAid);
+        return response()->json('تمت العمليه بنجاح');
     }
 
     public function addPatientFrinds(Request $request)
@@ -88,6 +91,8 @@ class FrontEndController extends Controller
                 $v['mediaType'] = 'image';
             else
                 $v['mediaType'] = 'video';
+                
+                return $v;
         });
 
         return response()->json($data);
@@ -95,13 +100,13 @@ class FrontEndController extends Controller
 
     public static function cansel($data, $request)
     {
-        $cancel = QueryController::status('cancel');
+        $cancel = QueryController::status('CANCEL');
         if ($cancel) {
             $data->reason()->create([
                 'reason' => $request->reason,
-                'status' => $cancel->id
+                'status' => 2
             ]);
-            $data->update(['status' => $cancel->id]);
+            $data->update(['status' => 2]);
         }
 
         return response()->json('تم الالغاء بنجاح.');
