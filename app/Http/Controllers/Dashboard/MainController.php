@@ -7,6 +7,8 @@ use App\Http\Controllers\Dashboard\Content\ActivityController;
 use App\Http\Controllers\Dashboard\Content\AppInfoController;
 use App\Http\Controllers\Dashboard\Reports\PatientFreindsController;
 use App\Http\Controllers\Dashboard\Reports\PsychologicalAidsController;
+use App\Http\Controllers\Dashboard\Users\PermissionController;
+use App\Http\Controllers\Dashboard\Users\RoleController;
 use App\Http\Controllers\Utility\QueryController;
 use App\Models\Analysis;
 use App\Models\AnalysisType;
@@ -42,18 +44,20 @@ class MainController extends Controller
                 'data' => AppInfoController::getAppIngo(),
                 'roles' => [],
             ],
-            'DOSE_TYPE' => response()->json([
+
+            'DOSE_TYPE' => [
                 'data' => TypesController::getTypes(DoseType::query(), $name),
                 'roles' => [],
-            ]),
-            'DEDICATION_TYPE' => response()->json([
+            ],
+
+            'DEDICATION_TYPE' => [
                 'data' => TypesController::getTypes(DetectionType::query(), $name),
                 'roles' => [],
-            ]),
-            'ANALYSIS_TYPE', 'TYPES' => response()->json([
+            ],
+            'ANALYSIS_TYPE', 'TYPES' => [
                 'data' => TypesController::getTypes(AnalysisType::query(), $name),
                 'roles' => [],
-            ]),
+            ],
             'PSYCHOLOGICAL_AID' ,'REPORTS' => [
                 'data' => PsychologicalAidsController::getPsychologicalAids($name),
                 'roles' => [],
@@ -62,6 +66,21 @@ class MainController extends Controller
                 'data' => PatientFreindsController::getPatientsFriends($name),
                 'roles' => [],
             ],
+
+            // users
+            'USER','USERS' => [
+                'data' => UsersController::getUsers($name),
+                'roles' => RoleController::getRole(),
+            ],
+            'ROLE' => [
+                'data' => RoleController::getRole(name: $name),
+                'roles' => PermissionController::getPermission(),
+            ],
+            'PERMISSION' => [
+                'data' => PermissionController::getPermission($name),
+                'roles' => RoleController::getRole(),
+            ],
+
             default => [
                 'data' => [],
                 'roles' => [],

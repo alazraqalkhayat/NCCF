@@ -77,10 +77,10 @@ export default {
                     ]
                 },
                 {
-                    url: "user.index",
+                    type: "USERS",
                     title: "ادارة المستحدمين",
                     subUrl: [
-                        {type: 'المستخدمين', title: "User", isShow: false},
+                        {title: 'المستخدمين', type: "USER", isShow: false},
                         {title: "انواع المستخدمين", type: 'ROLE', isShow: false},
                         {title: "الصلاحيات", type: 'PERMISSION', isShow: false},
                     ],

@@ -87,7 +87,7 @@ class TypesController extends Controller
     }
 
 //    delete
-    public function delete(Request $request,$id): JsonResponse
+    public function delete(Request $request, $id): JsonResponse
     {
         $query = match ($request->get('type')) {
             'DOSE' => DoseType::query(),

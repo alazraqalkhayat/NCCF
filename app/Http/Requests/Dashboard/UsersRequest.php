@@ -28,7 +28,6 @@ class UsersRequest extends FormRequest
             'name' => 'required',
             'email' => 'required|email',
             'password' => $this->has('password') ? 'required' : 'nullable',
-            'acadimyId' => 'required',
             'roles' => 'required|array',
         ];
     }

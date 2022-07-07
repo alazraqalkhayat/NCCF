@@ -6,7 +6,7 @@
                 <div></div>
                 <div class="flex items-center justify-around text-sm">
                     <div class="flex items-center mx-1">
-                        <JetInput v-model="searchData" type="text" class="text-sm" :placeholder="`${isType}`"/>
+                        <JetInput v-model="searchData" type="text" class="text-sm" :placeholder="`${isType.title}`"/>
                     </div>
                     <SecondaryButton class="mx-1" @click="getRecords(searchData,type)">بحث</SecondaryButton>
                     <PrimaryButton @click="showForm.add = true" class="mx-1">اضافة</PrimaryButton>

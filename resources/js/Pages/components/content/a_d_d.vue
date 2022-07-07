@@ -106,14 +106,8 @@
                     </div>
                     <div dir="rtl" class="w-full">
                         <JetLable class="mb-2" value="الحالة"/>
+                        <p class="border-gray-300 rounded-md shadow-sm" v-text="editData.status"></p>
 
-                        <select @change="havReason" v-model="editData.status"
-                                class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm max-w-full">
-                            <option class="border-gray-300 rounded-md shadow-sm" v-for="(item, index) in roles.status"
-                                    :key="index" :value="item.id" v-text="item.status"></option>
-                        </select>
-
-                        <JetInputError :message="editDataError.status[0]" class="mt-2"/>
                     </div>
                     <div dir="rtl" class="w-full">
                         <JetLable class="mb-2" value="النوع"/>
@@ -292,18 +286,14 @@ export default {
             })
         },
         editForm(id) {
-            let showDataIndex = this.showData.findIndex(v => v.id == id);
+            let showDataIndex = this.showData.findIndex(v => v.id === id);
             this.editData = this.showData[showDataIndex]
             this.showRoles.type.map(v => {
-                if (this.editData.type == v.name) this.editData.type = v.id
+                if (this.editData.type === v.name) this.editData.type = v.id
                 return v
             })
             this.showRoles.patient.map(v => {
-                if (this.editData.patient == v.name) this.editData.patient = v.id
-                return v
-            })
-            this.showRoles.status.map(v => {
-                if (this.editData.status == v.status) this.editData.status = v.id
+                if (this.editData.patient === v.name) this.editData.patient = v.id
                 return v
             })
             this.havReason()
@@ -363,7 +353,7 @@ export default {
         },
         deleteFun() {
             axios.get(route('a.d.d.delete', {id: this.editData.id, type: this.isType})).then(r => {
-                this.showData = this.showData.filter(v => v.id != this.editData.id)
+                this.showData = this.showData.filter(v => v.id !== this.editData.id)
                 this.showForm.update = false;
                 this.addData = {
                     date: '',
@@ -389,13 +379,14 @@ export default {
                     type: [''],
                     status: ['']
                 }
-                return this.$notify({
+                this.$notify({
                     title: 'تم',
                     text: 'كل شيئ على مايرام',
                     type: 'success',
                 })
             }).catch(er => {
                 console.log(er)
+
                 this.$notify({
                     title: 'Error',
                     text: 'حدث خطاء ما!',
@@ -404,7 +395,7 @@ export default {
             })
         },
         havReason() {
-            this.showReason = this.roles.status[this.roles.status.findIndex(v => v.id == this.editData.status)].status == 'CANCEL'
+            this.showReason = this.showRoles.status[this.roles.status.findIndex(v => v.id === this.editData.status)].status === 'CANCEL'
         }
     }
 }

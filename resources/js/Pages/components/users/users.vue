@@ -3,29 +3,30 @@
         <!-- tables -->
         <div class="w-full h-[60vh]">
             <div class="flex items-center h-10 text-sm text-center border-b border-gray-500 my-2">
-                <snap v-text="'id'" class="mx-auto w-1/6 text-gray-600"></snap>
-                <snap v-text="'الرقم الاكاديمي'" class="mx-auto w-1/6 text-gray-600"></snap>
-                <snap v-text="'الاسم'" class="mx-auto w-1/6 text-gray-600"></snap>
-                <snap v-text="'النوع'" class="mx-auto w-2/6 text-gray-600"></snap>
-                <snap v-text="'الصلاحيات'" class="mx-auto w-2/6 text-gray-600"></snap>
+                <span v-text="'id'" class="mx-auto w-1/12 text-gray-600"></span>
+                <span v-text="'الايميل'" class="mx-auto w-2/12 text-gray-600"></span>
+                <span v-text="'الاسم'" class="mx-auto w-2/12 text-gray-600"></span>
+                <span v-text="'النوع'" class="mx-auto w-2/12 text-gray-600"></span>
+                <span v-text="'الصلاحيات'" class="mx-auto w-2/12 text-gray-600"></span>
             </div>
             <div class="h-4/5 overflow-auto snap-y scroll-smooth span-center bg-gray-50 p-1">
-                <div class="flex bg-white min-h-[6vh] rounded-lg items-center text-center text-sm shadow-lg my-2 hover:bg-gray-900 hover:text-white cursor-pointer"
+                <div
+                    class="flex bg-white min-h-[6vh] rounded-lg items-center text-center text-sm whitespace-nowrap text-sm shadow-lg my-2 hover:bg-gray-900 hover:text-white cursor-pointer"
                     v-for="(item, index) in showData" :key="index" @click="editForm(item.id)">
-                    <snap v-text="'#' + item.id" class="mx-auto w-1/6 "></snap>
-                    <snap v-text="item.acadimyId" class="mx-auto w-1/6 "></snap>
-                    <snap v-text="item.name" class="mx-auto w-1/6 "></snap>
-                    <snap class="mx-auto w-2/6 flex items-center justify-center">
-                        <div class="px-2 mx-2 py-1 rounded-md text-sm bg-indigo-300 bg-opacity-25"
-                            v-for="(type, i) in item.type" :key="i" v-text="type"></div>
-                    </snap>
-                    <snap class="mx-auto w-2/6 flex items-center justify-center">
-                        <div class="flex items-center justify-center" v-for="(promission, i) in item.promissions"
-                            :key="i">
-                            <div class="rounded-md px-2 mx-2 py-1  text-sm bg-indigo-300 bg-opacity-25"
-                                v-for="(item, i) in promission" :key="i" v-text="item"></div>
-                        </div>
-                    </snap>
+                    <span v-text="'#' + item.id" class="mx-auto w-1/12 "></span>
+                    <span v-text="item.email" class="mx-auto w-2/12 "></span>
+                    <span v-text="item.name" class="mx-auto w-2/12 "></span>
+                    <span class="mx-auto w-2/12 flex items-center justify-center">
+                        <span class="px-2 mx-2 py-1 rounded-md text-sm bg-indigo-300 bg-opacity-25"
+                              v-for="(type, i) in item.type" :key="i" v-text="type"></span>
+                    </span>
+                    <span class="mx-auto w-2/12 flex items-center justify-center">
+                        <span class="flex items-center justify-center" v-for="(permission, i) in item.permissions"
+                              :key="i">
+                            <span class="rounded-md px-2 mx-2 py-1  text-sm bg-indigo-300 bg-opacity-25"
+                                  v-for="(item, i) in permission" :key="i" v-text="item"></span>
+                        </span>
+                    </span>
                 </div>
             </div>
         </div>
@@ -39,56 +40,48 @@
             </template>
             <template #model-title>
                 <div dir="rtl" class="flex items-center ">
-                    <h2 class="text-lg mx-au font-medium text-gray-900" v-text="editData.name"> </h2>
+                    <h2 class="text-lg mx-au font-medium text-gray-900" v-text="editData.name"></h2>
                 </div>
             </template>
             <!-- model-content -->
             <template #model-content>
                 <div class="grid grid-cols-2 gap-4 my-2">
                     <div dir="rtl" class="w-full">
-                        <JetLable class="mb-2" value="الاسم" />
+                        <JetLabel class="mb-2" value="الاسم"/>
 
-                        <JetInput v-model="addData.name" type="text" class="mt-1 block" placeholder="الاسم" />
+                        <JetInput v-model="addData.name" type="text" class="mt-1 block" placeholder="الاسم"/>
 
-                        <JetInputError :message="addDataError.name[0]" class="mt-2" />
+                        <JetInputError :message="addDataError.name[0]" class="mt-2"/>
                     </div>
                     <div dir="rtl" class="w-full">
-                        <JetLable class="mb-2" value="الرقم الاكاديمي" />
+                        <JetLabel class="mb-2" value="الايميل"/>
 
-                        <JetInput v-model="addData.acadimyId" type="number" class="mt-1 block"
-                            placeholder="الرقم الاكاديمي" />
+                        <JetInput v-model="addData.email" type="email" class="mt-1 block" placeholder="الايميل"/>
 
-                        <JetInputError :message="addDataError.acadimyId[0]" class="mt-2" />
+                        <JetInputError :message="addDataError.email[0]" class="mt-2"/>
                     </div>
                     <div dir="rtl" class="w-full">
-                        <JetLable class="mb-2" value="الايميل" />
-
-                        <JetInput v-model="addData.email" type="email" class="mt-1 block" placeholder="الايميل" />
-
-                        <JetInputError :message="addDataError.email[0]" class="mt-2" />
-                    </div>
-                    <div dir="rtl" class="w-full">
-                        <JetLable class="mb-2" value="كلمة المرور" />
+                        <JetLabel class="mb-2" value="كلمة المرور"/>
 
                         <JetInput v-model="addData.password" type="password" class="mt-1 block"
-                            placeholder="كلمة المرور" />
+                                  placeholder="كلمة المرور"/>
 
-                        <JetInputError :message="addDataError.password[0]" class="mt-2" />
+                        <JetInputError :message="addDataError.password[0]" class="mt-2"/>
                     </div>
                     <div dir="rtl" class="w-full">
-                        <JetLable class="mb-2" value="النوع" />
+                        <JetLabel class="mb-2" value="النوع"/>
 
                         <div class="w-full bg-white h-20 overflow-auto">
-                            <JetLable class="mb-2 w-full flex items-center" v-for="(item, i) in roles" :key="i">
+                            <JetLabel class="mb-2 w-full flex items-center" v-for="(item, i) in roles" :key="i">
                                 <div class="flex items-center">
                                     <input v-model="addData.roles[item.id]" type="checkbox"
-                                        class="mx-1 block rounded-md " />
+                                           class="mx-1 block rounded-md "/>
                                     <span>{{ item.name }}</span>
                                 </div>
-                            </JetLable>
+                            </JetLabel>
                         </div>
 
-                        <JetInputError :message="addDataError.roles[0]" class="mt-2" />
+                        <JetInputError :message="addDataError.roles[0]" class="mt-2"/>
                     </div>
 
 
@@ -116,56 +109,41 @@
             </template>
             <template #model-title>
                 <div dir="rtl" class="flex items-center ">
-                    <h2 class="text-lg mx-au font-medium text-gray-900" v-text="editData.name"> </h2>
+                    <h2 class="text-lg mx-au font-medium text-gray-900" v-text="editData.name"></h2>
                 </div>
             </template>
             <!-- model-content -->
             <template #model-content>
                 <div class="grid grid-cols-2 gap-4 my-2">
                     <div dir="rtl" class="w-full">
-                        <JetLable class="mb-2" value="الاسم" />
+                        <JetLabel class="mb-2" value="الاسم"/>
 
-                        <JetInput v-model="editData.name" type="text" class="mt-1 block" placeholder="الاسم" />
+                        <JetInput v-model="editData.name" type="text" class="mt-1 block" placeholder="الاسم"/>
 
-                        <JetInputError :message="editDataError.name[0]" class="mt-2" />
+                        <JetInputError :message="editDataError.name[0]" class="mt-2"/>
                     </div>
                     <div dir="rtl" class="w-full">
-                        <JetLable class="mb-2" value="الرقم الاكاديمي" />
+                        <JetLabel class="mb-2" value="الايميل"/>
 
-                        <JetInput v-model="editData.acadimyId" type="number" class="mt-1 block"
-                            placeholder="الرقم الاكاديمي" />
+                        <JetInput v-model="editData.email" type="text" class="mt-1 block" placeholder="الايميل"/>
 
-                        <JetInputError :message="editDataError.acadimyId[0]" class="mt-2" />
+                        <JetInputError :message="editDataError.email[0]" class="mt-2"/>
                     </div>
+
                     <div dir="rtl" class="w-full">
-                        <JetLable class="mb-2" value="الايميل" />
-
-                        <JetInput v-model="editData.email" type="text" class="mt-1 block" placeholder="الايميل" />
-
-                        <JetInputError :message="editDataError.email[0]" class="mt-2" />
-                    </div>
-                    <!-- <div dir="rtl" class="w-full">
-                        <JetLable class="mb-2" value="كلمة المرور" />
-
-                        <JetInput v-model="editData.password" type="password" class="mt-1 block"
-                            placeholder="كلمة المرور" />
-
-                        <JetInputError :message="editDataError.password[0]" class="mt-2" />
-                    </div> -->
-                    <div dir="rtl" class="w-full">
-                        <JetLable class="mb-2" value="النوع" />
+                        <JetLabel class="mb-2" value="النوع"/>
 
                         <div class="w-full bg-white h-20 overflow-auto">
-                            <JetLable class="mb-2 w-full flex items-center" v-for="(item, i) in roles" :key="i">
+                            <JetLabel class="mb-2 w-full flex items-center" v-for="(item, i) in roles" :key="i">
                                 <div class="flex items-center">
                                     <input v-model="checkRole[item.id]" type="checkbox"
-                                        class="mx-1 block rounded-md " />
+                                           class="mx-1 block rounded-md "/>
                                     <span>{{ item.name }}</span>
                                 </div>
-                            </JetLable>
+                            </JetLabel>
                         </div>
 
-                        <JetInputError :message="editDataError.roles[0]" class="mt-2" />
+                        <JetInputError :message="editDataError.roles[0]" class="mt-2"/>
                     </div>
 
 
@@ -177,7 +155,7 @@
                         <JetPrimaryButton @click="update" class="mx-5">
                             حفظ
                         </JetPrimaryButton>
-                        <JetDangButton v-if="editData.id != 1" @click="deleteFun" class="mx-5">
+                        <JetDangButton v-if="editData.id !== 1" @click="deleteFun" class="mx-5">
                             حذف
                         </JetDangButton>
                     </div>
@@ -191,14 +169,14 @@
 </template>
 
 <script>
-import AppLayoutVue from '@/Layouts/AppLayout.vue'
+import AppLayoutVue from '../../../Layouts/AppLayout.vue'
 import MyForm from '../../components/my_form.vue'
-import JetInput from '@/Jetstream/Input.vue'
-import JetInputError from '@/Jetstream/InputError.vue'
-import JetPrimaryButton from '@/Jetstream/PrimaryButton.vue'
-import JetDangButton from '@/Jetstream/DangerButton.vue'
-import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
-import JetLable from '@/Jetstream/Label.vue'
+import JetInput from '../../../Jetstream/Input.vue'
+import JetInputError from '../../../Jetstream/InputError.vue'
+import JetPrimaryButton from '../../../Jetstream/PrimaryButton.vue'
+import JetDangButton from '../../../Jetstream/DangerButton.vue'
+import JetSecondaryButton from '../../../Jetstream/SecondaryButton.vue'
+import JetLabel from '../../../Jetstream/Label.vue'
 import axios from 'axios'
 
 export default {
@@ -210,57 +188,52 @@ export default {
         JetPrimaryButton,
         JetSecondaryButton,
         JetDangButton,
-        JetLable,
+        JetLabel,
     },
     props: {
         getData: {
             type: Array,
             default: [{
                 id: 1,
-                acadimyId: 12345,
                 name: 'root',
                 email: 'email@gmail.com',
                 type: 'admin',
-                promissions: [
+                permissions: [
                     'reed',
                     'write'
                 ]
             }]
         },
-        roles: [],
+        roles: {},
         addForm: false,
         updateForm: false,
     },
     data() {
         return {
-            promissions: [],
+            permission: [],
             showForm: {
                 add: this.addForm,
                 update: this.updateForm
             },
             editDataError: {
-                acadimyId: [''],
                 name: [''],
                 email: [''],
                 password: [''],
                 roles: ['']
             },
             editData: {
-                acadimyId: '',
                 name: '',
                 email: '',
                 password: '',
                 roles: []
             },
             addData: {
-                acadimyId: '',
                 name: '',
                 email: '',
                 password: '',
                 roles: []
             },
             addDataError: {
-                acadimyId: [''],
                 name: [''],
                 email: [''],
                 password: [''],
@@ -292,7 +265,6 @@ export default {
         store() {
             axios.post(route('user.store'), {
                 name: this.addData.name,
-                acadimyId: this.addData.acadimyId,
                 roles: this.addData.roles,
                 email: this.addData.email,
                 password: this.addData.password,
@@ -300,73 +272,94 @@ export default {
                 this.showData.push(r.data[0])
                 this.$emit('closeModel')
                 this.addData = {
-                    acadimyId: '',
                     name: '',
                     email: '',
                     password: '',
                     roles: []
                 }
                 this.addDataError = {
-                    acadimyId: [''],
                     name: [''],
                     email: [''],
                     password: [''],
                     roles: ['']
                 }
+                this.$notify({
+                    title: 'تم',
+                    text: 'كل شيئ على مايرام',
+                    type: 'success',
+                })
             }).catch(er => {
-
+                this.$notify({
+                    title: 'Error',
+                    text: 'حدث خطاء ما!',
+                    type: 'warn',
+                });
             })
         },
         update() {
-            axios.post(route('user.update', { id: this.editData.id }), {
+            axios.post(route('user.update', {id: this.editData.id}), {
                 name: this.editData.name,
-                acadimyId: this.editData.acadimyId,
                 roles: this.checkRole,
                 email: this.editData.email,
             }).then(r => {
                 this.showData = this.showData.map(v => {
-                    if (v.id == this.editData.id) v = r.data[0]
+                    if (v.id === this.editData.id) v = r.data[0]
                     return v
                 })
                 this.showForm.update = false;
                 this.editData = {
-                    acadimyId: '',
                     name: '',
                     email: '',
                     password: '',
                     roles: []
                 }
                 this.editDataError = {
-                    acadimyId: [''],
                     name: [''],
                     email: [''],
                     password: [''],
                     roles: ['']
                 }
+                this.$notify({
+                    title: 'تم',
+                    text: 'كل شيئ على مايرام',
+                    type: 'success',
+                })
             }).catch(er => {
-
+                this.$notify({
+                    title: 'Error',
+                    text: 'حدث خطاء ما!',
+                    type: 'warn',
+                });
             })
         },
         deleteFun() {
-            axios.get(route('user.delete', { id: this.editData.id })).then(r => {
-                this.showData = this.showData.filter(v => v.id != this.editData.id)
+            axios.get(route('user.delete', {id: this.editData.id})).then(r => {
+                this.showData = this.showData.filter(v => v.id !== r.data[0].id)
                 this.showForm.update = false;
                 this.editData = {
-                    acadimyId: '',
                     name: '',
                     email: '',
                     password: '',
                     roles: []
                 }
                 this.editDataError = {
-                    acadimyId: [''],
                     name: [''],
                     email: [''],
                     password: [''],
                     roles: ['']
                 }
+                this.$notify({
+                    title: 'تم',
+                    text: 'كل شيئ على مايرام',
+                    type: 'success',
+                })
             }).catch(er => {
-
+                console.log(er)
+                this.$notify({
+                    title: 'Error',
+                    text: 'حدث خطاء ما!',
+                    type: 'warn',
+                });
             })
         }
     }

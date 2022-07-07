@@ -55,11 +55,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 
     // add new psyological aid
-    Route::post('add-psyological-aid', [FrontEndController::class, 'addPsyologicalAid']); // get reson and change status
+    Route::post('add-psyological-aid', [FrontEndController::class, 'addPsychologicalAid']); // get reson and change status
 
 
     // add new patient frinds
-    Route::post('add-patient-frinds', [FrontEndController::class, 'addPatientFrinds']); // get name, phone and mimbership
+    Route::post('add-patient-frinds', [FrontEndController::class, 'addPatientFriends']); // get name, phone and mimbership
 
 
     // detection details

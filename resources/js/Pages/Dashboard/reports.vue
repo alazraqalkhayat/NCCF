@@ -5,7 +5,7 @@
             <div v-if="isType !== 'معلومات التطبيق'" class="flex w-full items-center justify-between text-sm">
                 <div class="flex items-center justify-around text-sm">
                     <div class="flex items-center mx-1">
-                        <JetInput v-model="searchData" type="text" class="text-sm" :placeholder="`${isType}`"/>
+                        <JetInput v-model="searchData" type="text" class="text-sm" :placeholder="`${isType.title}`"/>
                     </div>
                     <SecondaryButton class="mx-1" @click="getRecords(searchData,type)">بحث</SecondaryButton>
                 </div>

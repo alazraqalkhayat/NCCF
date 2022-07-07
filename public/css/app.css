@@ -1320,6 +1320,12 @@ select {
 .w-2\/6 {
   width: 33.333333%;
 }
+.w-1\/12 {
+  width: 8.333333%;
+}
+.w-2\/12 {
+  width: 16.666667%;
+}
 .min-w-0 {
   min-width: 0px;
 }
@@ -1473,6 +1479,9 @@ select {
 .truncate {
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.whitespace-nowrap {
   white-space: nowrap;
 }
 .break-all {

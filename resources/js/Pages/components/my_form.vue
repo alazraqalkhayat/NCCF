@@ -1,7 +1,7 @@
 
 <template>
     <div>
-        <div @click="openModel" :class="showBtnClasses">
+        <div @click="openModel" >
             <slot name="show" />
         </div>
 
@@ -30,10 +30,6 @@ export default {
         JetDialogModal,
     },
     props: {
-        showBtnClasses: {
-            type: Boolean,
-            default: false
-        },
         show: {
             type: Boolean,
             default: false

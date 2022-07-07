@@ -166,7 +166,7 @@ export default {
                 name: 'root',
             }]
         },
-        roles: [],
+        roles: {},
         addForm: false,
         updateForm: false,
     },

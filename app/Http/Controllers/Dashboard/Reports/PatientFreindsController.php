@@ -14,6 +14,9 @@ class PatientFreindsController extends Controller
         return PatientFrinds::query()
             ->when($id, fn($query, $id) => $query->where('id', '=', $id))
             ->when($name, fn($query, $name) => $query->where('name', 'like', '%' . $name . '%'))
-            ->get(['id', 'name']);
+            ->get(['id', 'name', 'phone', 'membership'])->map(function ($v) {
+                $v['membership'] = $v['membership'] ? 'عضو دائم' : 'عضو مؤقت';
+                return $v;
+            });
     }
 }

@@ -14,11 +14,11 @@ class PsychologicalAidsController extends Controller
         return PsychologicalAid::query()
             ->when($id, fn($query, $id) => $query->where('id', '=', $id))
             ->when($name, fn($query, $name) => $query->where('problem', 'like', '%' . $name . '%'))
-            ->get(['id', 'problem'])
+            ->get(['id', 'problem','patient'])
             ->map(fn($item) => [
                 'id' => $item->id,
                 'problem' => $item->problem,
-//                'patient' => $item->patient()->first()?->name,
+                'patient' => $item->patient()->first()?->name,
             ]);
     }
 }

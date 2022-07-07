@@ -1,12 +1,8 @@
 <?php
 
 use App\Http\Controllers\Dashboard\Content\ADDController;
-use App\Http\Controllers\Dashboard\Content\AnalysisController;
 use App\Http\Controllers\Dashboard\Content\AppInfoController;
-use App\Http\Controllers\Dashboard\Content\DetectionController;
-use App\Http\Controllers\Dashboard\Content\DoseController;
 use App\Http\Controllers\Dashboard\Content\ActivityController;
-use App\Http\Controllers\Dashboard\ContentController;
 use App\Http\Controllers\Dashboard\MainController;
 use App\Http\Controllers\Dashboard\ReportsController;
 use App\Http\Controllers\Dashboard\TypesController;
@@ -17,17 +13,6 @@ use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -59,11 +44,9 @@ Route::middleware([
             ->controller(UsersController::class)
             ->name('user.')
             ->group(function () {
-                Route::get('/', 'index')->name('index');
                 Route::post('update/{id}', 'update')->name('update');
                 Route::post('store', 'store')->name('store');
                 Route::get('delete/{id}', 'delete')->name('delete');
-                Route::post('get-recourds', 'getRecourds')->name('getRecourds');
             });
 
         Route::prefix('role')
@@ -87,15 +70,11 @@ Route::middleware([
 
         // start for patient management api
 
-        // get main.getRecourds
-        Route::post('get-records',[MainController::class , 'getRecords'])->name('main.getRecords');
-
-        // content
-        Route::get('content/', [ContentController::class, 'index'])->name('content.index');
-        Route::post('content/get-records', [ContentController::class, 'getRecords'])->name('content.getRecords');
+        // get main.getRecords
+        Route::post('get-records', [MainController::class, 'getRecords'])->name('main.getRecords');
 
 //        ADD routes
-        Route::prefix('content')->name('a.d.d.')->controller(ADDController::class)->group(function (){
+        Route::prefix('content')->name('a.d.d.')->controller(ADDController::class)->group(function () {
             Route::post('update/{id}/{type}', 'update')->name('update');
             Route::post('store/{type}', 'store')->name('store');
             Route::get('delete/{id}/{type}', 'delete')->name('delete');
@@ -103,21 +82,19 @@ Route::middleware([
 
         // types
         Route::prefix('types')->controller(TypesController::class)->name('types.')->group(function () {
-//            Route::get('/', [TypesController::class, 'index'])->name('index');
-            Route::post('get-records', [TypesController::class, 'getRecords'])->name('getRecords');
             Route::post('update/{id}', 'update')->name('update');
             Route::post('store', 'store')->name('store');
             Route::post('delete/{id}', 'delete')->name('delete');
         });
 
 //        for reports
-        Route::prefix('reports')->name('reports.')->group(function(){
+        Route::prefix('reports')->name('reports.')->group(function () {
             Route::get('/', [ReportsController::class, 'index'])->name('index');
             Route::post('get-records', [ReportsController::class, 'getRecords'])->name('getRecords');
         });
 
         // for app info
-        Route::post('app-info/update/{appInfo}', [AppInfoController::class,'update'])->name('app_info.update');
+        Route::post('app-info/update/{appInfo}', [AppInfoController::class, 'update'])->name('app_info.update');
 
         // for activity
         Route::prefix('activity')
