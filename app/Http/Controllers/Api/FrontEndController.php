@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Dashboard\Content\ActivityController;
+use App\Http\Controllers\Dashboard\Content\ADDController;
+use App\Http\Controllers\Dashboard\ContentController;
 use App\Http\Controllers\Dashboard\TypesController;
 use App\Http\Controllers\Utility\QueryController;
 use App\Models\Analysis;
@@ -12,74 +14,76 @@ use App\Models\DetectionType;
 use App\Models\Dose;
 use App\Models\PatientFrinds;
 use App\Models\PsychologicalAid;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class FrontEndController extends Controller
 {
 
-    public function getDetectionType(Request $request): JsonResponse
+    public function getDetectionType(Request $request): \Illuminate\Http\JsonResponse
     {
         return response()->json(TypesController::getTypes(DetectionType::query()));
     }
 
-    public function detectionDetails(Request $request): JsonResponse
+    public function detectionDetails(Request $request): \Illuminate\Http\JsonResponse
     {
 
         $user = $request->user();
-        $detectionType = $request->get('type');
+        $detectionType = $request->get('typeId');
 
         $detection = $user->detection()->where('type','=',$detectionType);
 
         return response()->json(QueryController::getADDData($detection));
     }
 
-    public function detectionCansel(Request $request, Detection $detection): JsonResponse
+    public function detectionCansel(Request $request)
     {
+        $detection = Detection::find($request->id);
         return self::cansel($detection, $request);
     }
 
-    public function getAnalysis(Request $request): JsonResponse
+    public function getAnalysis(Request $request)
     {
         return response()->json(QueryController::getADDData(Analysis::query(), userId: $request->user()->id));
     }
 
-    public function getDose(Request $request): JsonResponse
+    public function getDose(Request $request)
     {
         return response()->json(QueryController::getADDData(Dose::query(), userId: $request->user()->id));
     }
 
-    public function analysisCansel(Request $request, Analysis $analysis): JsonResponse
+    public function analysisCansel(Request $request, Analysis $analysis)
     {
+        $analysis = Analysis::find($request->id);
         return self::cansel($analysis, $request);
     }
 
-    public function doseCansel(Request $request, Dose $dose): JsonResponse
+    public function doseCansel(Request $request)
     {
+        $dose = Dose::find($request->id);
         return self::cansel($dose, $request);
     }
 
-    public function addPsychologicalAid(Request $request): JsonResponse
+    public function addPsyologicalAid(Request $request)
     {
-        $addPsychologicalAid = PsychologicalAid::query()->create([
-            'problem' => $request->get('problem')
+        $addPsyologicalAid = $request->user()->psychologicalAid()->create([
+            'problem' => $request->problem,
         ]);
 
-        return response()->json($addPsychologicalAid);
+        return response()->json('تمت العمليه بنجاح');
     }
 
-    public function addPatientFriends(Request $request): JsonResponse
+    public function addPatientFrinds(Request $request)
     {
-        $patientFriends = PatientFrinds::query()->create([
-            'name' => $request->get('name'),
-            'phone' => $request->get('phone'),
-            'membership' => $request->get('membership'),
+        $patientFrinds = PatientFrinds::query()->create([
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'membership' => $request->membership,
         ]);
 
-        return response()->json($patientFriends);
+        return response()->json($patientFrinds);
     }
 
-    public function eventsActivities(Request $request): JsonResponse
+    public function eventsActivities(Request $request)
     {
         $data = ActivityController::getActivity();
         $data->map(function ($v) {
@@ -87,22 +91,22 @@ class FrontEndController extends Controller
                 $v['mediaType'] = 'image';
             else
                 $v['mediaType'] = 'video';
-
-            return $v;
+                
+                return $v;
         });
 
         return response()->json($data);
     }
 
-    public static function cansel($data, $request): JsonResponse
+    public static function cansel($data, $request)
     {
-        $cancel = QueryController::status('cancel');
+        $cancel = QueryController::status('CANCEL');
         if ($cancel) {
             $data->reason()->create([
-                'reason' => $request->get('reason'),
-                'status' => $cancel->value('id')
+                'reason' => $request->reason,
+                'status' => 2
             ]);
-            $data->update(['status' => $cancel->value('id')]);
+            $data->update(['status' => 2]);
         }
 
         return response()->json('تم الالغاء بنجاح.');
