@@ -10,6 +10,8 @@ use App\Http\Controllers\Dashboard\Reports\PsychologicalAidsController;
 use App\Http\Controllers\Dashboard\Users\PermissionController;
 use App\Http\Controllers\Dashboard\Users\RoleController;
 use App\Http\Controllers\Utility\QueryController;
+use App\Models\Activities;
+use App\Models\ActivitiesType;
 use App\Models\Analysis;
 use App\Models\AnalysisType;
 use App\Models\Detection;
@@ -32,7 +34,9 @@ class MainController extends Controller
         $data = match ($type) {
             'ACTIVITIES'  => [
                 'data' => ActivityController::getActivity($name),
-                'roles' => [],
+                'roles' => [
+                    'type' => ActivitiesType::all(['id','name'])
+                ],
             ],
 
             // ADD
@@ -56,6 +60,10 @@ class MainController extends Controller
             ],
             'ANALYSIS_TYPE', 'TYPES' => [
                 'data' => TypesController::getTypes(AnalysisType::query(), $name),
+                'roles' => [],
+            ],
+            'ACTIVITIES_TYPE' => [
+                'data' => TypesController::getTypes(ActivitiesType::query(), $name),
                 'roles' => [],
             ],
             'PSYCHOLOGICAL_AID' ,'REPORTS' => [

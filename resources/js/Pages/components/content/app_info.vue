@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- tables -->
-        <div class="w-full h-[60vh]">
+        <div class="w-full h-full">
             <div class="flex items-center h-10 text-sm text-center border-b border-gray-500 my-2">
                 <span v-text="'id'" class="mx-auto w-1/5 text-gray-600"></span>
                 <span v-text="'عنا'" class="mx-auto w-1/5 text-gray-600"></span>
@@ -180,6 +180,11 @@ export default {
                 }
                 this.iamge = ''
             }).catch(er => {
+                this.$notify({
+                    title: 'Error',
+                    text: 'حدث خطاء ما!',
+                    type: 'warn',
+                });
                 this.editDataError = er.response.data.errors
             })
         },

@@ -15,13 +15,20 @@ class ActivityController extends Controller
         return Activities::query()
             ->when($date, fn ($q, $r) => $q->whereDate('name', '=',  $r))
             ->when($id, fn ($q, $r) => $q->where('id', $r))
-            ->get(['id', 'path', 'type']);
+            ->get(['id', 'path', 'type'])->map(function($v){
+                return [
+                    'id' => $v['id'],
+                    'path' => $v['path'],
+                    'type' => $v->type()->first()?->name,
+                ];
+            });
     }
 
     // activity.store
     public function store(Request $request): JsonResponse
     {
         $data = self::setValidate($request);
+
         if (str_contains($request->get('fileType'), 'image'))
             $data['path'] = 'Files/' . $request->file('path')->store('images/activities', 'upload');
         else
@@ -68,7 +75,7 @@ class ActivityController extends Controller
     {
         return $request->validate([
             'path' => $request->hasFile('path') ? 'required' : '',
-            'type' => 'required',
+            'type' => 'required|exists:activities_types,id',
         ]);
     }
 }

@@ -17,7 +17,7 @@ class ActivitiesFactory extends Factory
     public function definition()
     {
         return [
-            'type' => $this->faker->randomElement(['create', 'update', 'delete']),
+            'type' => rand(1,2),
             'path' => '/images/default.png',
         ];
     }

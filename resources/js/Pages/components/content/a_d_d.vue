@@ -26,21 +26,21 @@
         <MyForm :show="showForm.add">
             <template #model-title>
                 <div dir="rtl" class="flex items-center ">
-                    <h2 class="text-lg mx-au font-medium text-gray-900" v-text="editData.date"></h2>
+                    <h2 class="text-lg mx-au font-medium text-gray-900" v-text="'اظافة'"></h2>
                 </div>
             </template>
             <!-- model-content -->
             <template #model-content>
                 <div class="grid grid-cols-2 gap-4 my-2">
                     <div dir="rtl" class="w-full">
-                        <JetLable class="mb-2" value="التاريخ"/>
+                        <JetLabel class="mb-2" value="التاريخ"/>
 
                         <JetInput v-model="addData.date" type="date" class="mt-1 block" placeholder="التاريخ"/>
 
                         <JetInputError :message="addDataError.date[0]" class="mt-2"/>
                     </div>
                     <div dir="rtl" class="w-full">
-                        <JetLable class="mb-2" value="المريض"/>
+                        <JetLabel class="mb-2" value="المريض"/>
 
                         <select v-model="addData.patient"
                                 class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm max-w-full">
@@ -52,7 +52,7 @@
                         <JetInputError :message="addDataError.patient[0]" class="mt-2"/>
                     </div>
                     <div dir="rtl" class="w-full">
-                        <JetLable class="mb-2" value="النوع"/>
+                        <JetLabel class="mb-2" value="النوع"/>
 
                         <select v-model="addData.type"
                                 class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm max-w-full">
@@ -87,14 +87,14 @@
             <template #model-content>
                 <div class="grid grid-cols-2 gap-4 my-2">
                     <div dir="rtl" class="w-full">
-                        <JetLable class="mb-2" value="التاريخ"/>
+                        <JetLabel class="mb-2" value="التاريخ"/>
 
                         <JetInput v-model="editData.date" type="date" class="mt-1 block" placeholder="التاريخ"/>
 
                         <JetInputError :message="editDataError.date[0]" class="mt-2"/>
                     </div>
                     <div dir="rtl" class="w-full">
-                        <JetLable class="mb-2" value="المريض"/>
+                        <JetLabel class="mb-2" value="المريض"/>
 
                         <select v-model="editData.patient"
                                 class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm max-w-full">
@@ -105,12 +105,12 @@
                         <JetInputError :message="editDataError.patient[0]" class="mt-2"/>
                     </div>
                     <div dir="rtl" class="w-full">
-                        <JetLable class="mb-2" value="الحالة"/>
+                        <JetLabel class="mb-2" value="الحالة"/>
                         <p class="border-gray-300 rounded-md shadow-sm" v-text="editData.status"></p>
 
                     </div>
                     <div dir="rtl" class="w-full">
-                        <JetLable class="mb-2" value="النوع"/>
+                        <JetLabel class="mb-2" value="النوع"/>
 
                         <select v-model="editData.type"
                                 class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm max-w-full">
@@ -123,7 +123,7 @@
                 </div>
 
                 <div v-if="showReason" dir="rtl" class="w-full">
-                    <JetLable class="mb-2" value="السبب"/>
+                    <JetLabel class="mb-2" value="السبب"/>
 
                     <textarea v-model="editData.reason"
                               class="border-gray-300 w-full h-32 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
@@ -152,14 +152,14 @@
 </template>
 
 <script>
-import AppLayoutVue from '@/Layouts/AppLayout.vue'
+import AppLayoutVue from '../../../Layouts/AppLayout.vue'
 import MyForm from '../../components/my_form.vue'
-import JetInput from '@/Jetstream/Input.vue'
-import JetInputError from '@/Jetstream/InputError.vue'
-import JetPrimaryButton from '@/Jetstream/PrimaryButton.vue'
-import JetDangButton from '@/Jetstream/DangerButton.vue'
-import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
-import JetLable from '@/Jetstream/Label.vue'
+import JetInput from '../../../Jetstream/Input.vue'
+import JetInputError from '../../../Jetstream/InputError.vue'
+import JetPrimaryButton from '../../../Jetstream/PrimaryButton.vue'
+import JetDangButton from '../../../Jetstream/DangerButton.vue'
+import JetSecondaryButton from '../../../Jetstream/SecondaryButton.vue'
+import JetLabel from '../../../Jetstream/Label.vue'
 import axios from 'axios'
 
 export default {
@@ -171,7 +171,7 @@ export default {
         JetPrimaryButton,
         JetSecondaryButton,
         JetDangButton,
-        JetLable,
+        JetLabel,
     },
     props: {
         getData: {},
@@ -190,26 +190,21 @@ export default {
                 date: [''],
                 patient: [''],
                 type: [''],
-                status: [''],
             },
             editData: {
                 date: '',
                 patient: '',
                 type: '',
-                status: '',
             },
             addData: {
                 date: '',
                 patient: '',
                 type: '',
-                status: '',
             },
             addDataError: {
                 date: [''],
                 patient: [''],
                 type: [''],
-                status: [''],
-
             },
             showData: this.getData,
             showRoles: this.roles,
@@ -228,7 +223,6 @@ export default {
         getData: function (nv, ov) {
             this.showData = nv
         },
-
         roles: function (nv, ov) {
             this.showRoles = nv
         },
@@ -242,7 +236,6 @@ export default {
                 date: this.addData.date,
                 type: this.addData.type,
                 patient: this.addData.patient,
-                reason: this.showReason ? this.editData.reason : null
             }).then(r => {
                 this.showData.push(r.data[0])
                 this.$emit('closeModel')
@@ -250,32 +243,28 @@ export default {
                     date: '',
                     patient: [''],
                     type: [''],
-                    status: ''
                 }
                 this.addDataError = {
                     date: [''],
                     patient: [''],
                     type: [''],
-                    status: ['']
                 }
                 this.editData = {
                     date: '',
                     patient: [''],
                     type: [''],
-                    status: ''
                 }
                 this.editDataError = {
                     date: [''],
                     patient: [''],
                     type: [''],
-                    status: ['']
                 }
-                return this.$notify({
+                this.showForm.add = false
+                this.$notify({
                     title: 'تم',
                     text: 'كل شيئ على مايرام',
                     type: 'success',
                 })
-
             }).catch(er => {
                 this.$notify({
                     title: 'Error',
@@ -283,20 +272,24 @@ export default {
                     type: 'warn',
                 });
                 console.log(er)
+                if (er.response) {
+                    this.addDataError = er.response.data.errors
+                }
             })
         },
         editForm(id) {
-            let showDataIndex = this.showData.findIndex(v => v.id === id);
-            this.editData = this.showData[showDataIndex]
-            this.showRoles.type.map(v => {
-                if (this.editData.type === v.name) this.editData.type = v.id
-                return v
-            })
-            this.showRoles.patient.map(v => {
-                if (this.editData.patient === v.name) this.editData.patient = v.id
-                return v
-            })
-            this.havReason()
+            for (const item of this.showData) {
+                if(item.id === id) {
+                    this.editData = {
+                        id:item.id,
+                        date: item.date,
+                        patient: this.showRoles.patient.filter(val => val.name === item.patient)[0]?.id,
+                        type: this.showRoles.type.filter(val => val.name === item.type)[0]?.id,
+                        status: this.showRoles.status.filter(val => val.status === item.status)[0]?.id
+                    }
+                    break;
+                }
+            }
             this.showForm.update = true
         },
         update() {
@@ -304,11 +297,9 @@ export default {
                 date: this.editData.date,
                 type: this.editData.type,
                 patient: this.editData.patient,
-                status: this.editData.status,
-                reason: this.showReason ? this.editData.reason : null
             }).then(r => {
                 this.showData = this.showData.map(v => {
-                    if (v.id == this.editData.id) v = r.data[0]
+                    if (v.id === this.editData.id) v = r.data[0]
                     return v
                 })
                 this.showForm.update = false;
@@ -316,25 +307,21 @@ export default {
                     date: '',
                     patient: [''],
                     type: [''],
-                    status: ''
                 }
                 this.addDataError = {
                     date: [''],
                     patient: [''],
                     type: [''],
-                    status: ['']
                 }
                 this.editData = {
                     date: '',
                     patient: [''],
                     type: [''],
-                    status: ''
                 }
                 this.editDataError = {
                     date: [''],
                     patient: [''],
                     type: [''],
-                    status: ['']
                 }
                 return this.$notify({
                     title: 'تم',
@@ -348,6 +335,7 @@ export default {
                     text: 'حدث خطاء ما!',
                     type: 'warn',
                 });
+                this.editDataError = er.response.data.errors
                 console.log(er)
             })
         },
@@ -359,25 +347,21 @@ export default {
                     date: '',
                     patient: [''],
                     type: [''],
-                    status: ''
                 }
                 this.addDataError = {
                     date: [''],
                     patient: [''],
                     type: [''],
-                    status: ['']
                 }
                 this.editData = {
                     date: '',
                     patient: [''],
                     type: [''],
-                    status: ''
                 }
                 this.editDataError = {
                     date: [''],
                     patient: [''],
                     type: [''],
-                    status: ['']
                 }
                 this.$notify({
                     title: 'تم',
@@ -394,9 +378,6 @@ export default {
                 });
             })
         },
-        havReason() {
-            this.showReason = this.showRoles.status[this.roles.status.findIndex(v => v.id === this.editData.status)].status === 'CANCEL'
-        }
     }
 }
 </script>

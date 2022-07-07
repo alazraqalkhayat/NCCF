@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->Id();
-            $table->char('type', 20);
+            $table->foreignId('type');
             $table->text('path');
             $table->timestamps();
         });

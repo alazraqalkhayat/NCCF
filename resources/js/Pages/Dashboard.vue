@@ -14,7 +14,7 @@
                      :getData="mainData"
                      :type="type"
             />
-            <types v-if="['TYPES','ANALYSIS_TYPE','DOSE_TYPE','DEDICATION_TYPE'].includes(type.type)"
+            <types v-if="['TYPES','ANALYSIS_TYPE','DOSE_TYPE','DEDICATION_TYPE','ACTIVITIES_TYPE'].includes(type.type)"
                    :get-records="getRecords"
                    :get-data="mainData.data"
                    :roles="mainData.roles"

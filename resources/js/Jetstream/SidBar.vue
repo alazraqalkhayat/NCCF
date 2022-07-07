@@ -64,7 +64,8 @@ export default {
                     subUrl: [
                         {title: 'انواع التحاليل', type: 'ANALYSIS_TYPE', isShow: false},
                         {title: 'انواع الجرعات', type: 'DOSE_TYPE', isShow: false},
-                        {title: 'انواع الكشف', type: 'DEDICATION_TYPE', isShow: false}
+                        {title: 'انواع الكشف', type: 'DEDICATION_TYPE', isShow: false},
+                        {title: 'انواع الانشطة', type: 'ACTIVITIES_TYPE', isShow: false},
                     ]
                 },
                 {

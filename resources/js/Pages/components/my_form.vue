@@ -23,17 +23,14 @@
 
 </template>
 <script >
-import JetDialogModal from '@/Jetstream/DialogModal.vue';
+import JetDialogModal from '../../Jetstream/DialogModal.vue';
 
 export default {
     components: {
         JetDialogModal,
     },
     props: {
-        show: {
-            type: Boolean,
-            default: false
-        },
+        show: false,
     },
     data() {
         return {
@@ -43,8 +40,8 @@ export default {
         }
     },
     watch: {
-        show: function (v, ov) {
-            this.dialog.show = v;
+        show: function (nv, ov) {
+            this.dialog.show = nv;
         }
     },
     methods: {

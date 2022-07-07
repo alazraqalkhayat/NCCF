@@ -1,8 +1,8 @@
 <template>
     <div class="bg-white h-[80vh] min-w-[80vw] overflow-auto shadow-xl sm:rounded-lg px-6">
         <!-- top -->
-        <div class="w-full border-b-2 h-1/5 mt-2">
-            <div v-if="isType !== 'معلومات التطبيق'" class="flex w-full items-center justify-between text-sm">
+        <div v-if="isType.type !== 'APP_INFO'" class="w-full border-b-2 h-1/5 mt-2">
+            <div  class="flex w-full items-center justify-between text-sm">
                 <div></div>
                 <div class="flex items-center justify-around text-sm">
                     <div class="flex items-center mx-1">

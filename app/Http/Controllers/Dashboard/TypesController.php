@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\ActivitiesType;
 use App\Models\AnalysisType;
 use App\Models\DetectionType;
 use App\Models\DoseType;
@@ -30,24 +31,6 @@ class TypesController extends Controller
             ->get(['id', 'name']);
     }
 
-    public function getRecords(Request $request): JsonResponse
-    {
-        $type = $request->get('type');
-        $name = $request->get('name') == '' ? null : $request->get('name');
-        return match ($type) {
-            'DOSE' => response()->json([
-                'data' => $this->getTypes(DoseType::query(), $name),
-            ]),
-            'DEDICATION' => response()->json([
-                'data' => $this->getTypes(DetectionType::query(), $name),
-            ]),
-            default => response()->json([
-                'data' => $this->getTypes(AnalysisType::query(), $name),
-            ]),
-        };
-
-    }
-
     public function update(Request $request, $id): JsonResponse
     {
         $data = $request->validate([
@@ -55,8 +38,9 @@ class TypesController extends Controller
         ]);
 
         $query = match ($request->get('type')) {
-            'DOSE' => DoseType::query(),
-            'DEDICATION' => DetectionType::query(),
+            'DOSE_TYPE' => DoseType::query(),
+            'DEDICATION_TYPE' => DetectionType::query(),
+            'ACTIVITIES_TYPE' => ActivitiesType::query(),
             default => AnalysisType::query(),
         };
 
@@ -75,8 +59,9 @@ class TypesController extends Controller
         ]);
 
         $query = match ($request->get('type')) {
-            'DOSE' => DoseType::query(),
-            'DEDICATION' => DetectionType::query(),
+            'DOSE_TYPE' => DoseType::query(),
+            'DEDICATION_TYPE' => DetectionType::query(),
+            'ACTIVITIES_TYPE' => ActivitiesType::query(),
             default => AnalysisType::query(),
         };
 
@@ -90,8 +75,9 @@ class TypesController extends Controller
     public function delete(Request $request, $id): JsonResponse
     {
         $query = match ($request->get('type')) {
-            'DOSE' => DoseType::query(),
-            'DEDICATION' => DetectionType::query(),
+            'DOSE_TYPE' => DoseType::query(),
+            'DEDICATION_TYPE' => DetectionType::query(),
+            'ACTIVITIES_TYPE' => ActivitiesType::query(),
             default => AnalysisType::query(),
         };
 

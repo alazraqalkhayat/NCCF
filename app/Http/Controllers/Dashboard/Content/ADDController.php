@@ -10,6 +10,7 @@ use App\Models\Dose;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use JetBrains\PhpStorm\NoReturn;
 
 
 class ADDController extends Controller
@@ -21,11 +22,13 @@ class ADDController extends Controller
 
         $query = self::getQuery($type);
 
-        $data = self::setValidate($request) + ['status' => $status->id];
+        $data = self::setValidate($request);
+        $data['status'] = $status->value('id');
+//        dd($data);
 
-        $analysis = $query->create($data);
+        $store = $query->create($data);
 
-        return response()->json(QueryController::getADDData($query, id: $analysis->id));
+        return response()->json(QueryController::getADDData($query, id: $store->id));
     }
 
     // analysis.update
@@ -38,10 +41,6 @@ class ADDController extends Controller
         $model = $query->findOrFail($id);
 
         $model->update($data);
-
-        $reason = $request->get('reason');
-        if ($reason)
-            $model->reason()->create(['reason' => $reason, 'status' => $data['status']]);
 
         return response()->json(QueryController::getADDData($query, id: $model->id));
     }
@@ -66,8 +65,6 @@ class ADDController extends Controller
             'patient' => 'required|exists:users,id',
             'date' => 'required|date',
         ];
-        if ($request->has('status'))
-            $rules['status'] = ['required'];
 
         return $request->validate($rules);
     }
@@ -75,7 +72,7 @@ class ADDController extends Controller
     public static function getQuery($type = null): Builder
     {
         return match ($type) {
-            'ANALYSIS' => Analysis::query(),
+            'ANALYSIS', 'CONTENT' => Analysis::query(),
             'DOSE' => Dose::query(),
             default => Detection::query()
         };

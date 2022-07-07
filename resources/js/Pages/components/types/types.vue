@@ -186,8 +186,18 @@ export default {
                 this.addDataError = {
                     name: [''],
                 }
+                this.$notify({
+                    title: 'تم',
+                    text: 'تمت العملية بنجاح',
+                    type: 'success',
+                });
             }).catch(er => {
                 this.addDataError.name = er.response.data.errors.name
+                this.$notify({
+                    title: 'Error',
+                    text: 'حدث خطاء ما!',
+                    type: 'warn'
+                });
             })
         },
         update() {
@@ -209,8 +219,18 @@ export default {
                 this.editDataError = {
                     name: [''],
                 }
+                this.$notify({
+                    title: 'تم',
+                    text: 'تمت العملية بنجاح',
+                    type: 'success',
+                });
             }).catch(er => {
                 this.editDataError.name = er.response.data.errors.name
+                this.$notify({
+                    title: 'Error',
+                    text: 'حدث خطاء ما!',
+                    type: 'warn'
+                });
             })
         },
         deleteFun() {
@@ -225,8 +245,18 @@ export default {
                 this.editDataError = {
                     name: [''],
                 }
+                this.$notify({
+                    title: 'تم',
+                    text: 'تمت العملية بنجاح',
+                    type: 'success',
+                });
             }).catch(er => {
                 this.editDataError.name = er.response.data.errors.name
+                this.$notify({
+                    title: 'Error',
+                    text: 'حدث خطاء ما!',
+                    type: 'warn'
+                });
             })
         }
     }

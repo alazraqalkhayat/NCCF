@@ -10,4 +10,8 @@ class Activities extends Model
     use HasFactory;
 
     protected $fillable = ['type', 'path'];
+
+    public function type(){
+        return $this->belongsTo(ActivitiesType::class,'type');
+    }
 }
