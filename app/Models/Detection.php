@@ -11,7 +11,7 @@ class Detection extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['date', 'type', 'patient'];
+    protected $fillable = ['date', 'type', 'patient','status'];
 
     public function type(): BelongsTo
     {

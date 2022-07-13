@@ -26,6 +26,8 @@ Route::post('api-login', [UserController::class, 'login']);
 
 Route::post('add-patient-frinds', [FrontEndController::class, 'addPatientFrinds']); // get name, phone and mimbership
 
+Route::post('about-us', [FrontEndController::class, 'aboutUs']); // get media type and type
+
 // Route::post('forget-password', [FrontEndController::class, 'addPatientFrinds']); // get name, phone and mimbership
 
 
@@ -67,5 +69,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     // detection details
     Route::post('events-activities', [FrontEndController::class, 'eventsActivities']); // get media type and type
+
+    
 
 });

@@ -9,6 +9,7 @@ use App\Http\Controllers\Dashboard\ContentController;
 use App\Http\Controllers\Dashboard\TypesController;
 use App\Http\Controllers\Utility\QueryController;
 use App\Models\Analysis;
+use App\Models\AppInfo;
 use App\Models\Detection;
 use App\Models\DetectionType;
 use App\Models\Dose;
@@ -37,7 +38,7 @@ class FrontEndController extends Controller
 
     public function detectionCansel(Request $request)
     {
-        $detection = Detection::find($request->id);
+        $detection = Detection::findOrFail(intval($request->id));
         return self::cansel($detection, $request);
     }
 
@@ -48,6 +49,7 @@ class FrontEndController extends Controller
 
     public function getDose(Request $request)
     {
+        
         return response()->json(QueryController::getADDData(Dose::query(), userId: $request->user()->id));
     }
 
@@ -100,15 +102,22 @@ class FrontEndController extends Controller
 
     public static function cansel($data, $request)
     {
-        $cancel = QueryController::status('CANCEL');
-        if ($cancel) {
+        // $cancel = QueryController::status('CANCEL');
+        // if ($cancel) {
             $data->reason()->create([
                 'reason' => $request->reason,
                 'status' => 2
             ]);
+
             $data->update(['status' => 2]);
-        }
+        // }
 
         return response()->json('تم الالغاء بنجاح.');
+    }
+
+    public function aboutUs()
+    {
+        $info=AppInfo::all();
+        return response()->json($info);
     }
 }
