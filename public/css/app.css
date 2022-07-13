@@ -1575,10 +1575,6 @@ select {
   --tw-border-opacity: 1;
   border-color: rgb(55 65 81 / var(--tw-border-opacity));
 }
-.border-gray-500 {
-  --tw-border-opacity: 1;
-  border-color: rgb(107 114 128 / var(--tw-border-opacity));
-}
 .border-secondary {
   --tw-border-opacity: 1;
   border-color: rgb(198 209 84 / var(--tw-border-opacity));
@@ -1649,10 +1645,6 @@ select {
 .bg-gray-900 {
   --tw-bg-opacity: 1;
   background-color: rgb(17 24 39 / var(--tw-bg-opacity));
-}
-.bg-indigo-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(165 180 252 / var(--tw-bg-opacity));
 }
 .bg-opacity-25 {
   --tw-bg-opacity: 0.25;
@@ -2077,18 +2069,6 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(142 186 84 / var(--tw-bg-opacity));
 }
-.hover\:bg-secondary:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(198 209 84 / var(--tw-bg-opacity));
-}
-.hover\:bg-indigo-900:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(49 46 129 / var(--tw-bg-opacity));
-}
-.hover\:bg-gray-900:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(17 24 39 / var(--tw-bg-opacity));
-}
 .hover\:bg-tertiary:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(111 209 84 / var(--tw-bg-opacity));
@@ -2120,14 +2100,6 @@ select {
 .hover\:text-white:hover {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-.file\:hover\:bg-indigo-800:hover::-webkit-file-upload-button {
-  --tw-bg-opacity: 1;
-  background-color: rgb(55 48 163 / var(--tw-bg-opacity));
-}
-.file\:hover\:bg-indigo-800:hover::file-selector-button {
-  --tw-bg-opacity: 1;
-  background-color: rgb(55 48 163 / var(--tw-bg-opacity));
 }
 .file\:hover\:bg-tertiary:hover::-webkit-file-upload-button {
   --tw-bg-opacity: 1;

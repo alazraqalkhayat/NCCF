@@ -10,7 +10,7 @@
                 <span v-text="'الصلاحيات'" class="mx-auto w-2/12 text-gray-600"></span>
             </div>
             <div class="h-4/5 overflow-auto snap-y scroll-smooth span-center bg-gray-50 p-1">
-                <div class="flex bg-white min-h-[6vh] rounded-lg items-center text-center text-sm whitespace-nowrap text-sm shadow-lg my-2 hover:bg-tertiary hover:text-white cursor-pointer"
+                <div class="flex bg-white min-h-[6vh] rounded-lg items-center text-center text-sm whitespace-nowrap  shadow-lg my-2 hover:bg-tertiary hover:text-white cursor-pointer"
                     v-for="(item, index) in showData" :key="index" @click="editForm(item.id)">
                     <span v-text="'#' + item.id" class="mx-auto w-1/12 "></span>
                     <span v-text="item.email" class="mx-auto w-2/12 "></span>
