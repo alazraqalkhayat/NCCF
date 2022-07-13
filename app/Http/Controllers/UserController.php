@@ -9,7 +9,7 @@ use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
-    //
+    
 
     public function login(Request $request)
     {
@@ -20,16 +20,18 @@ class UserController extends Controller
         ]);
 
         $user = User::where('email', $request->email)->first();
+        
+        // if (!$user || Hash::check($request->password, $user->password)) {
+        //     abort(500);
+        // }
 
-        if (!$user || Hash::check($request->password, $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['أوراق الاعتماد المقدمة غير صحيحة.'],
-            ]);
-        }
-
-        $token = $user->createToken($request->device_name);
+        $token = $user->createToken($request->device_name)->plainTextToken;
         return response()->json([
-            'user' => $user,
+            'id'=>$user->id,
+            'name'=>$user->name,
+            'phone'=>$user->phone,
+            'email'=>$user->email,
+            'token' => $token,
         ]);
     }
 
