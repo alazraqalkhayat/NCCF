@@ -2,7 +2,7 @@
     <div>
         <!-- tables -->
         <div class="w-full h-[60vh]">
-            <div class="flex items-center h-10 text-sm text-center border-b border-gray-500 my-2">
+            <div class="flex items-center h-10 text-sm text-center border-b border-secondary my-2">
                 <span v-text="'id'" class="mx-auto w-1/12 text-gray-600"></span>
                 <span v-text="'الايميل'" class="mx-auto w-2/12 text-gray-600"></span>
                 <span v-text="'الاسم'" class="mx-auto w-2/12 text-gray-600"></span>
@@ -10,21 +10,20 @@
                 <span v-text="'الصلاحيات'" class="mx-auto w-2/12 text-gray-600"></span>
             </div>
             <div class="h-4/5 overflow-auto snap-y scroll-smooth span-center bg-gray-50 p-1">
-                <div
-                    class="flex bg-white min-h-[6vh] rounded-lg items-center text-center text-sm whitespace-nowrap text-sm shadow-lg my-2 hover:bg-gray-900 hover:text-white cursor-pointer"
+                <div class="flex bg-white min-h-[6vh] rounded-lg items-center text-center text-sm whitespace-nowrap text-sm shadow-lg my-2 hover:bg-tertiary hover:text-white cursor-pointer"
                     v-for="(item, index) in showData" :key="index" @click="editForm(item.id)">
                     <span v-text="'#' + item.id" class="mx-auto w-1/12 "></span>
                     <span v-text="item.email" class="mx-auto w-2/12 "></span>
                     <span v-text="item.name" class="mx-auto w-2/12 "></span>
                     <span class="mx-auto w-2/12 flex items-center justify-center">
-                        <span class="px-2 mx-2 py-1 rounded-md text-sm bg-indigo-300 bg-opacity-25"
-                              v-for="(type, i) in item.type" :key="i" v-text="type"></span>
+                        <span class="px-2 mx-2 py-1 rounded-md text-sm bg-secondary bg-opacity-25"
+                            v-for="(type, i) in item.type" :key="i" v-text="type"></span>
                     </span>
                     <span class="mx-auto w-2/12 flex items-center justify-center">
                         <span class="flex items-center justify-center" v-for="(permission, i) in item.permissions"
-                              :key="i">
-                            <span class="rounded-md px-2 mx-2 py-1  text-sm bg-indigo-300 bg-opacity-25"
-                                  v-for="(item, i) in permission" :key="i" v-text="item"></span>
+                            :key="i">
+                            <span class="rounded-md px-2 mx-2 py-1  text-sm bg-secondary bg-opacity-25"
+                                v-for="(item, i) in permission" :key="i" v-text="item"></span>
                         </span>
                     </span>
                 </div>
@@ -47,41 +46,41 @@
             <template #model-content>
                 <div class="grid grid-cols-2 gap-4 my-2">
                     <div dir="rtl" class="w-full">
-                        <JetLabel class="mb-2" value="الاسم"/>
+                        <JetLabel class="mb-2" value="الاسم" />
 
-                        <JetInput v-model="addData.name" type="text" class="mt-1 block" placeholder="الاسم"/>
+                        <JetInput v-model="addData.name" type="text" class="mt-1 block" placeholder="الاسم" />
 
-                        <JetInputError :message="addDataError.name[0]" class="mt-2"/>
+                        <JetInputError :message="addDataError.name[0]" class="mt-2" />
                     </div>
                     <div dir="rtl" class="w-full">
-                        <JetLabel class="mb-2" value="الايميل"/>
+                        <JetLabel class="mb-2" value="الايميل" />
 
-                        <JetInput v-model="addData.email" type="email" class="mt-1 block" placeholder="الايميل"/>
+                        <JetInput v-model="addData.email" type="email" class="mt-1 block" placeholder="الايميل" />
 
-                        <JetInputError :message="addDataError.email[0]" class="mt-2"/>
+                        <JetInputError :message="addDataError.email[0]" class="mt-2" />
                     </div>
                     <div dir="rtl" class="w-full">
-                        <JetLabel class="mb-2" value="كلمة المرور"/>
+                        <JetLabel class="mb-2" value="كلمة المرور" />
 
                         <JetInput v-model="addData.password" type="password" class="mt-1 block"
-                                  placeholder="كلمة المرور"/>
+                            placeholder="كلمة المرور" />
 
-                        <JetInputError :message="addDataError.password[0]" class="mt-2"/>
+                        <JetInputError :message="addDataError.password[0]" class="mt-2" />
                     </div>
                     <div dir="rtl" class="w-full">
-                        <JetLabel class="mb-2" value="النوع"/>
+                        <JetLabel class="mb-2" value="النوع" />
 
                         <div class="w-full bg-white h-20 overflow-auto">
                             <JetLabel class="mb-2 w-full flex items-center" v-for="(item, i) in roles" :key="i">
                                 <div class="flex items-center">
                                     <input v-model="addData.roles[item.id]" type="checkbox"
-                                           class="mx-1 block rounded-md "/>
+                                        class="mx-1 block rounded-md " />
                                     <span>{{ item.name }}</span>
                                 </div>
                             </JetLabel>
                         </div>
 
-                        <JetInputError :message="addDataError.roles[0]" class="mt-2"/>
+                        <JetInputError :message="addDataError.roles[0]" class="mt-2" />
                     </div>
 
 
@@ -116,34 +115,34 @@
             <template #model-content>
                 <div class="grid grid-cols-2 gap-4 my-2">
                     <div dir="rtl" class="w-full">
-                        <JetLabel class="mb-2" value="الاسم"/>
+                        <JetLabel class="mb-2" value="الاسم" />
 
-                        <JetInput v-model="editData.name" type="text" class="mt-1 block" placeholder="الاسم"/>
+                        <JetInput v-model="editData.name" type="text" class="mt-1 block" placeholder="الاسم" />
 
-                        <JetInputError :message="editDataError.name[0]" class="mt-2"/>
+                        <JetInputError :message="editDataError.name[0]" class="mt-2" />
                     </div>
                     <div dir="rtl" class="w-full">
-                        <JetLabel class="mb-2" value="الايميل"/>
+                        <JetLabel class="mb-2" value="الايميل" />
 
-                        <JetInput v-model="editData.email" type="text" class="mt-1 block" placeholder="الايميل"/>
+                        <JetInput v-model="editData.email" type="text" class="mt-1 block" placeholder="الايميل" />
 
-                        <JetInputError :message="editDataError.email[0]" class="mt-2"/>
+                        <JetInputError :message="editDataError.email[0]" class="mt-2" />
                     </div>
 
-                    <div dir="rtl" class="w-full">
-                        <JetLabel class="mb-2" value="النوع"/>
+                    <div dir="rtl" class="w-full" v-if="editData.id !== 1">
+                        <JetLabel class="mb-2" value="النوع" />
 
                         <div class="w-full bg-white h-20 overflow-auto">
                             <JetLabel class="mb-2 w-full flex items-center" v-for="(item, i) in roles" :key="i">
                                 <div class="flex items-center">
                                     <input v-model="checkRole[item.id]" type="checkbox"
-                                           class="mx-1 block rounded-md "/>
+                                        class="mx-1 block rounded-md " />
                                     <span>{{ item.name }}</span>
                                 </div>
                             </JetLabel>
                         </div>
 
-                        <JetInputError :message="editDataError.roles[0]" class="mt-2"/>
+                        <JetInputError :message="editDataError.roles[0]" class="mt-2" />
                     </div>
 
 
@@ -297,7 +296,7 @@ export default {
             })
         },
         update() {
-            axios.post(route('user.update', {id: this.editData.id}), {
+            axios.post(route('user.update', { id: this.editData.id }), {
                 name: this.editData.name,
                 roles: this.checkRole,
                 email: this.editData.email,
@@ -333,7 +332,7 @@ export default {
             })
         },
         deleteFun() {
-            axios.get(route('user.delete', {id: this.editData.id})).then(r => {
+            axios.get(route('user.delete', { id: this.editData.id })).then(r => {
                 this.showData = this.showData.filter(v => v.id !== r.data[0].id)
                 this.showForm.update = false;
                 this.editData = {

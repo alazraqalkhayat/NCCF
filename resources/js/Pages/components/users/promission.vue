@@ -2,18 +2,18 @@
     <div>
         <!-- tables -->
         <div class="w-full h-[60vh]">
-            <div class="flex items-center h-10 text-sm text-center border-b border-gray-500 my-2">
+            <div class="flex items-center h-10 text-sm text-center border-b border-secondary my-2">
                 <snap v-text="'id'" class="mx-auto w-1/6 text-gray-600"></snap>
                 <snap v-text="'الاسم'" class="mx-auto w-1/6 text-gray-600"></snap>
                 <snap v-text="'القواعد'" class="mx-auto w-4/6 text-gray-600"></snap>
             </div>
             <div class="h-4/5 overflow-auto snap-y scroll-smooth bg-gray-50 p-1">
-                <div class="flex bg-white min-h-[6vh] rounded-lg items-center text-center text-sm shadow-lg my-2 hover:bg-gray-900 hover:text-white cursor-pointer"
+                <div class="flex bg-white min-h-[6vh] rounded-lg items-center text-center text-sm shadow-lg my-2 hover:bg-tertiary hover:text-white cursor-pointer"
                     v-for="(item, index) in showData" :key="index" @click="editForm(item.id)">
                     <snap v-text="'#' + item.id" class="mx-auto w-1/6 "></snap>
                     <snap v-text="item.name" class="mx-auto w-1/6 "></snap>
                     <snap class="mx-auto w-4/6 flex items-center justify-center">
-                        <div class="px-2 mx-2 py-1 rounded-md text-sm bg-indigo-300 bg-opacity-25"
+                        <div class="px-2 mx-2 py-1 rounded-md text-sm bg-secondary bg-opacity-25"
                             v-for="(type, i) in item.roles" :key="i">
                             <div v-for="(item, i) in type" :key="i" v-text="item"></div>
                         </div>

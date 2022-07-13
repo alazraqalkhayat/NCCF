@@ -6,7 +6,7 @@
             </h2>
         </template>
 
-        <div class="bg-white w-full h-[80vh] overflow-auto shadow-xl sm:rounded-lg">
+        <div class="bg-white h-[80vh] overflow-auto shadow-xl sm:rounded-lg">
             <Welcome v-if="type.type === 'DASHBOARD'"/>
 
             <content v-if="['CONTENT','ANALYSIS','DOSE','DETECTION','ACTIVITIES','APP_INFO'].includes(type.type)"

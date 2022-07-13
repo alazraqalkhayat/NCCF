@@ -2,13 +2,12 @@
     <div>
         <!-- tables -->
         <div class="w-full h-[60vh]">
-            <div class="flex items-center h-10 text-sm text-center border-b border-gray-500 my-2">
+            <div class="flex items-center h-10 text-sm text-center border-b border-secondary my-2">
                 <span v-text="'id'" class="mx-auto w-10 text-gray-600"></span>
                 <span v-text="'النوع'" class="mx-auto max-w-full text-gray-600"></span>
             </div>
             <div class="h-4/5 overflow-auto snap-y scroll-smooth span-center bg-gray-50 p-1">
-                <div
-                    class="flex bg-white min-h-[6vh] rounded-lg items-center text-center text-sm shadow-lg my-2 hover:bg-gray-900 hover:text-white cursor-pointer"
+                <div class="flex bg-white min-h-[6vh] rounded-lg items-center text-center text-sm shadow-lg my-2 hover:bg-tertiary hover:text-white cursor-pointer"
                     v-for="(item, index) in showData" :key="index" @click="editForm(item.id)">
                     <span v-text="'#' + item.id" class="mx-auto w-10 "></span>
                     <span v-text="item.type" class="mx-auto max-w-full "></span>
@@ -32,24 +31,24 @@
             <template #model-content>
                 <div class="w-full grid grid-cols-2 gap-6">
                     <div dir="rtl" class="w-full">
-                        <JetLabel class="mb-2" value="النوع"/>
+                        <JetLabel class="mb-2" value="النوع" />
 
                         <select v-model="addData.type"
-                                class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm max-w-full">
+                            class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm max-w-full">
                             <option class="border-gray-300 rounded-md shadow-sm" v-for="(item, index) in roles.type"
-                                    :key="index" :value="item.id" v-text="item.name"></option>
+                                :key="index" :value="item.id" v-text="item.name"></option>
                         </select>
 
-                        <JetInputError :message="addDataError.type[0]" class="mt-2"/>
+                        <JetInputError :message="addDataError.type[0]" class="mt-2" />
                     </div>
                     <div dir="rtl" class="w-full h-72">
-                        <JetLabel class="mb-2" value="الصورة او الفيديو"/>
+                        <JetLabel class="mb-2" value="الصورة او الفيديو" />
 
                         <input type="file" accept="image/*,video/*"
-                               class="file:bg-indigo-100 file:border-none border-none file:outline-hidden outline-hidden file:rounded-lg file:hover:text-white file:hover:bg-indigo-800  p-1  focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                               @change="setImage" placeholder="الملف"/>
+                            class="file:bg-indigo-100 file:border-none border-none file:outline-hidden outline-hidden file:rounded-lg file:hover:text-white file:hover:bg-tertiary  p-1  focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                            @change="setImage" placeholder="الملف" />
 
-                        <JetInputError :message="addDataError.path[0]" class="mt-2"/>
+                        <JetInputError :message="addDataError.path[0]" class="mt-2" />
                     </div>
                 </div>
             </template>
@@ -81,24 +80,24 @@
             <template #model-content>
                 <div class="w-full grid grid-cols-2 gap-6">
                     <div dir="rtl" class="w-full">
-                        <JetLabel class="mb-2" value="النوع"/>
+                        <JetLabel class="mb-2" value="النوع" />
 
                         <select v-model="editData.type"
-                                class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm max-w-full">
+                            class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm max-w-full">
                             <option class="border-gray-300 rounded-md shadow-sm" v-for="(item, index) in roles.type"
-                                    :key="index" :value="item.id" v-text="item.name"></option>
+                                :key="index" :value="item.id" v-text="item.name"></option>
                         </select>
 
-                        <JetInputError :message="editDataError.type[0]" class="mt-2"/>
+                        <JetInputError :message="editDataError.type[0]" class="mt-2" />
                     </div>
                     <div dir="rtl" class="w-full h-72">
-                        <JetLabel class="mb-2" value="الصورة او الفيديو"/>
+                        <JetLabel class="mb-2" value="الصورة او الفيديو" />
 
                         <input type="file" accept="image/*,video/*"
-                               class="file:bg-indigo-100 file:border-none border-none file:outline-hidden outline-hidden file:rounded-lg file:hover:text-white file:hover:bg-indigo-800  p-1  focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                               @change="setImage" placeholder="الملف"/>
+                            class="file:bg-indigo-100 file:border-none border-none file:outline-hidden outline-hidden file:rounded-lg file:hover:text-white file:hover:bg-tertiary  p-1  focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                            @change="setImage" placeholder="الملف" />
 
-                        <JetInputError :message="editDataError.path[0]" class="mt-2"/>
+                        <JetInputError :message="editDataError.path[0]" class="mt-2" />
                     </div>
                 </div>
 
@@ -251,7 +250,7 @@ export default {
             form.append('path', this.editData.path)
             form.append('type', this.editData.type)
             form.append('fileType', this.editData.path.type.includes('image') ? 'image' : 'video')
-            axios.post(route('activity.update', {activity: this.editData.id}), form).then(r => {
+            axios.post(route('activity.update', { activity: this.editData.id }), form).then(r => {
                 this.showData = this.showData.map(v => {
                     if (v.id === this.editData.id) v = r.data[0]
                     return v
@@ -280,7 +279,7 @@ export default {
             })
         },
         deleteFun() {
-            axios.get(route('activity.delete', {activity: this.editData.id})).then(r => {
+            axios.get(route('activity.delete', { activity: this.editData.id })).then(r => {
                 this.showData = this.showData.filter(v => v.id !== this.editData.id)
                 this.showForm.update = false;
                 this.editData = {

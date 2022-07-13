@@ -1,29 +1,22 @@
 <template>
     <div>
-        <div v-for="(item, i) in links" :key="i"
-             class="w-full text-sm h-auto rounded-lg text-center px-auto p-2">
+        <div v-for="(item, i) in links" :key="i" class="w-full text-sm h-auto rounded-b-lg text-center px-auto p-2">
             <!-- Navigation Links -->
 
-            <div @click="active(item) "
-                 :class="item.isShow ? 'bg-gray-300 text-white' : ' hover:bg-gray-100 hover:text-gray-500 '"
-                 class="h-auto w-full text-center py-2 my-1 cursor-pointer rounded-md">
+            <div @click="active(item)"
+                :class="item.isShow ? 'bg-gray-300 text-gray-900' : ' hover:bg-gray-100 hover:text-gray-500 '"
+                class="h-auto w-full text-center py-2 cursor-pointer rounded-md">
                 {{ item.title }}
             </div>
 
-            <div v-if="item.subUrl"
-                 :class="item.isShow ? ' h-auto ' : ' h-0 '"
-                 class="transition-all block duration-300 ease-linear w-full flex items-center justify-center">
+            <div v-if="item.subUrl" :class="item.isShow ? ' h-auto bg-gray-100 rounded-b-lg' : ' h-0 '"
+                class="transition-all block duration-300 ease-linear w-full items-center justify-center">
                 <div class="mx-auto w-full">
-                    <!--                                        <div @click="$emit('getRecord',item); active(item.type)"-->
-                    <!--                                             :style="item.isShow ? 'font-size:10pt' : 'font-size:0pt; height:0px;'"-->
-                    <!--                                             :class="item.isShow ? `${item.isShow ? ' h-10 py-2 my-1 ' : ' h-0 '}` : ` ${item.isShow ? ' h-12 py-2 my-1 ' : ' h-0 '} hover:bg-gray-100 hover:text-gray-500 `"-->
-                    <!--                                             class="w-full text-center transition-all block duration-300 ease-linear">{{ item.title }}-->
-                    <!--                                        </div>-->
-                    <div @click="active(subItem)" v-for="(subItem,k) in item.subUrl"
-                         :key="k" :style="item.isShow ? 'font-size:10pt' : 'font-size:0pt'"
-                         :class="item.isShow ? `${subItem.isShow ?' bg-indigo-400 ':''} 'h-10 py-2 my-1 '` : ' h-0 '"
-                         class=" rounded-lg cursor-pointer text-center w-full px-auto flex items-center justify-center transition-all block duration-300 ease-linear hover:text-gray-50 hover:bg-indigo-400 focus:outline-none focus:text-gray-50 "
-                         v-text="subItem.title">
+                    <div @click="active(subItem)" v-for="(subItem, k) in item.subUrl" :key="k"
+                        :style="item.isShow ? 'font-size:10pt' : 'font-size:0pt'"
+                        :class="item.isShow ? `${subItem.isShow ? ' bg-primary text-white' : ''} 'h-10 py-2 my-1 '` : ' h-0 '"
+                        class=" rounded-lg cursor-pointer text-center w-full px-auto items-center justify-center transition-all block duration-300 ease-linear hover:text-gray-50 hover:bg-primary focus:outline-none focus:text-gray-50 "
+                        v-text="subItem.title">
                     </div>
                 </div>
             </div>

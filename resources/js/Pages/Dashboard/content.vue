@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white h-[80vh] min-w-[80vw] overflow-auto shadow-xl sm:rounded-lg px-6">
+    <div class="bg-white h-[80vh] w-[75vw] overflow-auto shadow-xl sm:rounded-lg px-6">
         <!-- top -->
         <div v-if="isType.type !== 'APP_INFO'" class="w-full border-b-2 h-1/5 mt-2">
             <div  class="flex w-full items-center justify-between text-sm">

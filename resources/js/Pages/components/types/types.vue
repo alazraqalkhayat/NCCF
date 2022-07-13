@@ -2,12 +2,12 @@
     <div>
         <!-- tables -->
         <div class="w-full h-[60vh]">
-            <div class="flex items-center h-10 text-sm text-center border-b border-gray-500 my-2">
+            <div class="flex items-center h-10 text-sm text-center border-b border-secondary my-2">
                 <span v-text="'id'" class="mx-auto w-1/5 text-gray-600"></span>
                 <span v-text="'الاسم'" class="mx-auto w-1/5 text-gray-600"></span>
             </div>
             <div class="h-4/5 overflow-auto snap-y scroll-smooth span-center bg-gray-50 p-1">
-                <div class="flex bg-white min-h-[6vh] rounded-lg items-center text-center text-sm shadow-lg my-2 hover:bg-gray-900 hover:text-white cursor-pointer"
+                <div class="flex bg-white min-h-[6vh] rounded-lg items-center text-center text-sm shadow-lg my-2 hover:bg-tertiary hover:text-white cursor-pointer"
                     v-for="(item, index) in showData" :key="index" @click="editForm(item.id)">
                     <span v-text="'#' + item.id" class="mx-auto w-1/5 "></span>
                     <span v-text="item.name" class="mx-auto w-1/5 "></span>

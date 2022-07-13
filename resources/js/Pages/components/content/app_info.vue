@@ -2,7 +2,7 @@
     <div>
         <!-- tables -->
         <div class="w-full h-full">
-            <div class="flex items-center h-10 text-sm text-center border-b border-gray-500 my-2">
+            <div class="flex items-center h-10 text-sm text-center border-b border-secondary my-2">
                 <span v-text="'id'" class="mx-auto w-1/5 text-gray-600"></span>
                 <span v-text="'عنا'" class="mx-auto w-1/5 text-gray-600"></span>
                 <span v-text="'رقم الهاتف'" class="mx-auto w-1/5 text-gray-600"></span>
@@ -10,8 +10,7 @@
                 <span v-text="'الايميل'" class="mx-auto w-1/5 text-gray-600"></span>
             </div>
             <div class="h-4/5 overflow-auto snap-y scroll-smooth span-center bg-gray-50 p-1">
-                <div
-                    class="flex bg-white min-h-[6vh] rounded-lg items-center text-center text-sm shadow-lg my-2 hover:bg-gray-900 hover:text-white cursor-pointer"
+                <div class="flex bg-white min-h-[6vh] rounded-lg items-center text-center text-sm shadow-lg my-2 hover:bg-tertiary hover:text-white cursor-pointer"
                     v-for="(item, index) in showData" :key="index" @click="editForm(item.id)">
                     <span v-text="'#' + item.id" class="mx-auto  w-1/5  "></span>
                     <span v-text="item.aboutUs" class="mx-auto w-1/5 "></span>
@@ -38,34 +37,37 @@
             <template #model-content>
                 <div class="my-2 w-full">
                     <div dir="rtl" class="w-full">
-                        <JetLable class="mb-2" value="الايميل"/>
+                        <JetLable class="mb-2" value="الايميل" />
 
-                        <JetInput v-model="editData.email" type="email" class="mt-1 w-full block" placeholder="الايميل"/>
+                        <JetInput v-model="editData.email" type="email" class="mt-1 w-full block"
+                            placeholder="الايميل" />
 
-                        <JetInputError :message="editDataError.email[0]" class="mt-2"/>
+                        <JetInputError :message="editDataError.email[0]" class="mt-2" />
                     </div>
                     <div dir="rtl" class="w-full">
-                        <JetLable class="mb-2" value="العنوان"/>
+                        <JetLable class="mb-2" value="العنوان" />
 
-                        <JetInput v-model="editData.address" type="text" class="mt-1 w-full block" placeholder="العنوان"/>
+                        <JetInput v-model="editData.address" type="text" class="mt-1 w-full block"
+                            placeholder="العنوان" />
 
-                        <JetInputError :message="editDataError.address[0]" class="mt-2"/>
+                        <JetInputError :message="editDataError.address[0]" class="mt-2" />
                     </div>
                     <div dir="rtl" class="w-full">
-                        <JetLable class="mb-2" value="التلفون"/>
+                        <JetLable class="mb-2" value="التلفون" />
 
-                        <JetInput v-model="editData.phone" type="text" class="mt-1 w-full block" placeholder="التلفون"/>
+                        <JetInput v-model="editData.phone" type="text" class="mt-1 w-full block"
+                            placeholder="التلفون" />
 
-                        <JetInputError :message="editDataError.phone[0]" class="mt-2"/>
+                        <JetInputError :message="editDataError.phone[0]" class="mt-2" />
                     </div>
                     <div dir="rtl" class="w-full">
-                        <JetLable class="mb-2" value="عنا"/>
+                        <JetLable class="mb-2" value="عنا" />
 
                         <textarea v-model="editData.aboutUs"
-                                  class="border-gray-300 w-full h-32 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                                  placeholder="عنا"/>
+                            class="border-gray-300 w-full h-32 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                            placeholder="عنا" />
 
-                        <JetInputError :message="editDataError.aboutUs[0]" class="mt-2"/>
+                        <JetInputError :message="editDataError.aboutUs[0]" class="mt-2" />
                     </div>
                 </div>
             </template>
@@ -155,7 +157,7 @@ export default {
         },
         update() {
 
-            axios.post(route('app_info.update', {appInfo: this.editData.id}), {
+            axios.post(route('app_info.update', { appInfo: this.editData.id }), {
                 email: this.editData.email,
                 address: this.editData.address,
                 phone: this.editData.phone,

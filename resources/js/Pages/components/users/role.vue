@@ -2,20 +2,19 @@
     <div>
         <!-- tables -->
         <div class="w-full h-[60vh]">
-            <div class="flex items-center h-10 text-sm text-center border-b border-gray-500 my-2">
+            <div class="flex items-center h-10 text-sm text-center border-b border-secondary my-2">
                 <span v-text="'id'" class="mx-auto w-1/6 text-gray-600"></span>
                 <span v-text="'الاسم'" class="mx-auto w-1/6 text-gray-600"></span>
                 <span v-text="'الصلاحيات'" class="mx-auto w-4/6 text-gray-600"></span>
             </div>
             <div class="h-4/5 overflow-auto snap-y scroll-smooth bg-gray-50 p-1">
-                <div
-                    class="flex bg-white min-h-[6vh] rounded-lg items-center text-center text-sm shadow-lg my-2 hover:bg-gray-900 hover:text-white cursor-pointer"
+                <div class="flex bg-white min-h-[6vh] rounded-lg items-center text-center text-sm shadow-lg my-2 hover:bg-tertiary hover:text-white cursor-pointer"
                     v-for="(item, index) in showData" :key="index" @click="editForm(item.id)">
                     <span v-text="'#' + item.id" class="mx-auto w-1/6 "></span>
                     <span v-text="item.name" class="mx-auto w-1/6 "></span>
                     <span class="mx-auto w-4/6 flex items-center justify-center">
-                        <span class="px-2 mx-2 py-1 rounded-md text-sm bg-indigo-300 bg-opacity-25"
-                              v-for="(type, i) in item.permissions" :key="i">
+                        <span class="px-2 mx-2 py-1 rounded-md text-sm bg-secondary bg-opacity-25"
+                            v-for="(type, i) in item.permissions" :key="i">
                             <span v-for="(item, i) in type" :key="i" v-text="item"></span>
                         </span>
                     </span>
@@ -39,26 +38,26 @@
             <template #model-content>
                 <div class="grid grid-cols-2 gap-4 my-2">
                     <div dir="rtl" class="w-full">
-                        <JetLabel class="mb-2" value="الاسم"/>
+                        <JetLabel class="mb-2" value="الاسم" />
 
-                        <JetInput v-model="addData.name" type="text" class="mt-1 block" placeholder="الاسم"/>
+                        <JetInput v-model="addData.name" type="text" class="mt-1 block" placeholder="الاسم" />
 
-                        <JetInputError :message="addDataError.name[0]" class="mt-2"/>
+                        <JetInputError :message="addDataError.name[0]" class="mt-2" />
                     </div>
                     <div dir="rtl" class="w-full">
-                        <JetLabel class="mb-2" value="النوع"/>
+                        <JetLabel class="mb-2" value="النوع" />
 
                         <div class="w-full bg-white h-20 overflow-auto">
                             <JetLabel class="mb-2 w-full flex items-center" v-for="(item, i) in roles" :key="i">
                                 <div class="flex items-center">
                                     <input v-model="addData.permissions[item.id]" type="checkbox"
-                                           class="mx-1 block rounded-md "/>
+                                        class="mx-1 block rounded-md " />
                                     <span>{{ item.name }}</span>
                                 </div>
                             </JetLabel>
                         </div>
 
-                        <JetInputError :message="addDataError.permissions[0]" class="mt-2"/>
+                        <JetInputError :message="addDataError.permissions[0]" class="mt-2" />
                     </div>
 
 
@@ -93,26 +92,26 @@
             <template #model-content>
                 <div class="grid grid-cols-2 gap-4 my-2">
                     <div dir="rtl" class="w-full">
-                        <JetLabel class="mb-2" value="الاسم"/>
+                        <JetLabel class="mb-2" value="الاسم" />
 
-                        <JetInput v-model="editData.name" type="text" class="mt-1 block" placeholder="الاسم"/>
+                        <JetInput v-model="editData.name" type="text" class="mt-1 block" placeholder="الاسم" />
 
-                        <JetInputError :message="editDataError.name[0]" class="mt-2"/>
+                        <JetInputError :message="editDataError.name[0]" class="mt-2" />
                     </div>
                     <div dir="rtl" class="w-full">
-                        <JetLabel class="mb-2" value="النوع"/>
+                        <JetLabel class="mb-2" value="النوع" />
 
                         <div class="w-full bg-white h-20 overflow-auto">
                             <JetLabel class="mb-2 w-full flex items-center" v-for="(item, i) in roles" :key="i">
                                 <div class="flex items-center">
                                     <input v-model="checkRole[item.id]" type="checkbox"
-                                           class="mx-1 block rounded-md "/>
+                                        class="mx-1 block rounded-md " />
                                     <span>{{ item.name }}</span>
                                 </div>
                             </JetLabel>
                         </div>
 
-                        <JetInputError :message="editDataError.permissions[0]" class="mt-2"/>
+                        <JetInputError :message="editDataError.permissions[0]" class="mt-2" />
                     </div>
 
 
@@ -240,11 +239,11 @@ export default {
                     permissions: ['']
                 }
             }).catch(er => {
-console.log(er)
+                console.log(er)
             })
         },
         update() {
-            axios.post(route('role.update', {role: this.editData.id}), {
+            axios.post(route('role.update', { role: this.editData.id }), {
                 name: this.editData.name,
                 permissions: this.checkRole,
             }).then(r => {
@@ -262,11 +261,11 @@ console.log(er)
                     permissions: ['']
                 }
             }).catch(er => {
-console.log(er)
+                console.log(er)
             })
         },
         deleteFun() {
-            axios.get(route('role.delete', {role: this.editData.id})).then(r => {
+            axios.get(route('role.delete', { role: this.editData.id })).then(r => {
                 this.showData = this.showData.filter(v => v.id !== r.data[0].id)
 
                 this.showForm.update = false;

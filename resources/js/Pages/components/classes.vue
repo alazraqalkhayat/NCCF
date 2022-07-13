@@ -26,12 +26,12 @@
                         <snap class="mx-2"> التاريخ :</snap>
                         <JetInput v-model="date" type="date" class="m-1 block h-8" placeholder="البحث" />
                     </div>
-                    <button class="py-2 px-4 mx-2 bg-gray-500 text-white hover:bg-secondary rounded-lg"
+                    <button class="py-2 px-4 mx-2 bg-gray-500 text-white hover:bg-tertiary rounded-lg"
                         @click="getRecords">بحث</button>
                 </div>
 
                 <button @click="showForm.add = true"
-                    class="flex items-center justify-center rounded-md text-white bg-indigo-500 hover:bg-indigo-900 p-2 focus:outline-none focus:bg-indigo-800 transition duration-150 ease-in-out">
+                    class="flex items-center justify-center rounded-md text-white bg-secondary hover:bg-tertiary p-2 focus:outline-none focus:bg-indigo-800 transition duration-150 ease-in-out">
                     اظافة
                     <!-- <svg class="h-6 w-6 flex items-center justify-center" stroke="currentColor" fill="none"
                         viewBox="0 0 24 24">
@@ -43,7 +43,7 @@
 
             <!-- tables -->
             <div class="w-full h-[60vh]">
-                <div class="flex items-center h-10 text-sm text-center border-b border-gray-500 my-2">
+                <div class="flex items-center h-10 text-sm text-center border-b border-secondary my-2">
                     <snap v-text="'id'" class="mx-auto w-1/6 text-gray-600"></snap>
                     <snap v-text="'الاسم'" class="mx-auto w-1/6 text-gray-600"></snap>
                     <snap v-text="'المسار'" class="mx-auto w-1/6 text-gray-600"></snap>
@@ -53,7 +53,7 @@
                     <snap v-text="'التاريخ'" class="mx-auto w-1/6 text-gray-600"></snap>
                 </div>
                 <div class="h-4/5 overflow-auto snap-y scroll-smooth">
-                    <div class="flex rounded-lg items-center text-center max-h-[6vh] text-sm shadow-lg my-2 hover:bg-gray-900 hover:text-white cursor-pointer"
+                    <div class="flex rounded-lg items-center text-center max-h-[6vh] text-sm shadow-lg my-2 hover:bg-tertiary hover:text-white cursor-pointer"
                         v-for="(item, index) in showData" :key="index" @click="editForm(item.id)">
                         <snap v-text="'#' + item.id" class="mx-auto w-1/6 "></snap>
                         <snap v-text="item.name" class="mx-auto w-1/6 "></snap>
